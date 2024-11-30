@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Tower3 : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -11,11 +13,6 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    public void attack(float damage)
-    {
-        Debug.Log("attack");
+        
     }
 }

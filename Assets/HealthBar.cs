@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour
@@ -15,7 +13,7 @@ public class HealthBar : MonoBehaviour
 
     public float ReduceHealthBar(float damage)
     {
-        health -= damage;
+        health = Mathf.Clamp(health - damage, 0f,InitialHealth);
         Vector2 scale = transform.localScale;
         scale.x = health/InitialHealth*1f;
         transform.localScale = scale;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -43,7 +41,7 @@ public class Projectile : MonoBehaviour
         {
             if (target.gameObject == other.gameObject)
             {
-                //target.attack(parent.Damage);对怪物造成伤害
+                target.attack(parent.Damage);//对怪物造成伤害
                 Destroy(gameObject);
             }
         }
