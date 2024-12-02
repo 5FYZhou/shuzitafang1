@@ -13,9 +13,17 @@ public class Tower : MonoBehaviour
     }
     //价格
     [SerializeField]
-    private float PurchasePrice;
+    private float purchasePrice;
+    public float PurchasePrice
+    {
+        get { return purchasePrice; }
+    }
     [SerializeField]
-    private float SellingPrice;
+    private float sellingPrice;
+    public float SellingPrice
+    {
+        get { return sellingPrice; }
+    }
 
     void Start()
     {
@@ -63,5 +71,18 @@ public class Tower : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void Purchase()
+    {
+        //if 金币数量大于PerchasePrize
+        Instantiate(gameObject);
+    }
+
+    public void Sell()
+    {
+        //if售出bottun被点击
+        Destroy(gameObject);
+        //金币+SellingPrices
     }
 }

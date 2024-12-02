@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tower
-  - Monster
   - ElectricPath
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +18,7 @@ TagManager:
   - 
   - Wall
   - Tower
-  - Monster
+  - Enemy
   - 
   - 
   - 

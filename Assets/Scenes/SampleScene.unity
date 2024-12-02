@@ -847,8 +847,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   initialHealthVolume: 50
-  PurchasePrice: 50
-  SellingPrice: 30
+  purchasePrice: 0
+  sellingPrice: 0
 --- !u!50 &376236073
 Rigidbody2D:
   serializedVersion: 4
@@ -1276,8 +1276,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   initialHealthVolume: 50
-  PurchasePrice: 100
-  SellingPrice: 60
+  purchasePrice: 0
+  sellingPrice: 0
 --- !u!1 &581483391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,7 +2211,7 @@ GameObject:
   - component: {fileID: 920512732}
   m_Layer: 10
   m_Name: Monster1
-  m_TagString: Monster
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2373,7 +2373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713b49b91d3b40b409c08e8d63be11d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Electricpath: {fileID: 0}
+  Electricpath: {fileID: 7936140230001540866, guid: eac57980f88d6624d931a03483df03c2, type: 3}
   layer:
     serializedVersion: 2
     m_Bits: 512
@@ -2396,8 +2396,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   initialHealthVolume: 25
-  PurchasePrice: 50
-  SellingPrice: 30
+  purchasePrice: 0
+  sellingPrice: 0
 --- !u!50 &922785755
 Rigidbody2D:
   serializedVersion: 4
@@ -2655,7 +2655,7 @@ GameObject:
   - component: {fileID: 924061464}
   m_Layer: 10
   m_Name: Monster1 (1)
-  m_TagString: Monster
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3054,8 +3054,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   initialHealthVolume: 200
-  PurchasePrice: 100
-  SellingPrice: 60
+  purchasePrice: 0
+  sellingPrice: 0
 --- !u!50 &1023512386
 Rigidbody2D:
   serializedVersion: 4
@@ -3741,7 +3741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713b49b91d3b40b409c08e8d63be11d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Electricpath: {fileID: 0}
+  Electricpath: {fileID: 7936140230001540866, guid: eac57980f88d6624d931a03483df03c2, type: 3}
   layer:
     serializedVersion: 2
     m_Bits: 512
@@ -3764,8 +3764,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   initialHealthVolume: 25
-  PurchasePrice: 50
-  SellingPrice: 30
+  purchasePrice: 0
+  sellingPrice: 0
 --- !u!50 &1563954153
 Rigidbody2D:
   serializedVersion: 4
@@ -3944,8 +3944,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   initialHealthVolume: 25
-  PurchasePrice: 50
-  SellingPrice: 30
+  purchasePrice: 0
+  sellingPrice: 0
 --- !u!50 &1574054645
 Rigidbody2D:
   serializedVersion: 4

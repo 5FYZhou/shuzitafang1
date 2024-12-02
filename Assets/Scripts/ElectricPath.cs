@@ -106,7 +106,7 @@ public class ElectricPath : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Enemy"))
         {
             targets.Add(other.GetComponent<Monster>());
         }
@@ -114,7 +114,7 @@ public class ElectricPath : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Enemy"))
         {
             Remove(other.GetComponent<Monster>());
         }

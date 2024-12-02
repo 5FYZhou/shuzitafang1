@@ -94,14 +94,14 @@ public class Tower1 : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Enemy"))
         {
             monsters.Enqueue(other.GetComponent<Monster>());
         }
     }
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Monster"))
+        if (other.CompareTag("Enemy"))
         {
             if (target != null && other.gameObject != target.gameObject)
             {
