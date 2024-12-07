@@ -5,6 +5,14 @@ public class Tower1 : MonoBehaviour
 {
     /*[SerializeField]
     private string projectileType;*/
+    //
+    [SerializeField]
+    private GameObject attackRangePrefab;
+    [SerializeField]
+    private GameObject healthBarPrefab;
+    private GameObject towerRange;
+    private GameObject bar;
+
     //攻击目标
     private Monster target;
     public Monster Target
@@ -37,9 +45,30 @@ public class Tower1 : MonoBehaviour
         get { return AttackPower; }
     }
 
+    //血量
+    [SerializeField]
+    private float initialHealthVolume;
+    public float InitialHealthVolume
+    {
+        get { return initialHealthVolume; }
+    }
+    //价格
+    [SerializeField]
+    private float purchasePrice;
+    public float PurchasePrice
+    {
+        get { return purchasePrice; }
+    }
+    [SerializeField]
+    private float sellingPrice;
+    public float SellingPrice
+    {
+        get { return sellingPrice; }
+    }
+
     void Start()
     {
-        GiveAttackRange();
+        CreatChild();
     }
     void Update()
     {
@@ -49,10 +78,37 @@ public class Tower1 : MonoBehaviour
     private void GiveAttackRange()
     {
         Vector2 range = new Vector2(AttackRange, AttackRange);
-        TowerAttackRange towerRange = GetComponentInChildren<TowerAttackRange>();
         if (towerRange)
         {
-            towerRange.SetAttackRange(range);
+            towerRange.GetComponent<TowerAttackRange>().SetAttackRange(range);
+        }
+    }
+
+    private void GiveHealthVolumn()
+    {
+        HealthBar healthBar = GetComponentInChildren<HealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(InitialHealthVolume);
+        }
+    }
+
+    private void CreatChild()
+    {
+        Transform AttackRange = transform.Find("TowerAttakRange");
+        if (!AttackRange)
+        {
+            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
+            towerRange.transform.SetParent(this.transform);
+            GiveAttackRange();
+        }
+        Transform HealthBar = transform.Find("HealthBarCanvas");
+        if (!HealthBar)
+        {
+            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
+            bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
+            bar.transform.SetParent(this.transform);
+            GiveHealthVolumn();
         }
     }
 

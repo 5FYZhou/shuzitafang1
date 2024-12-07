@@ -2,32 +2,30 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    public LayerMask detectlayer;
+    [SerializeField]
+    private LayerMask detectlayer;
+    TowerAttackRange range;
+    private float ShowRangeTimer;
+    public bool Ismoved;
 
-    //血量
-    [SerializeField]
-    private float initialHealthVolume;
-    public float InitialHealthVolume
+    private void Start()
     {
-        get { return initialHealthVolume; }
-    }
-    //价格
-    [SerializeField]
-    private float purchasePrice;
-    public float PurchasePrice
-    {
-        get { return purchasePrice; }
-    }
-    [SerializeField]
-    private float sellingPrice;
-    public float SellingPrice
-    {
-        get { return sellingPrice; }
+        //range = GetComponentInChildren<TowerAttackRange>();
+        ShowRangeTimer = 0;
     }
 
-    void Start()
+    private void Update()
     {
-        GiveHealthVolumn();
+        if (Ismoved)
+        {
+            ShowRangeTimer += Time.deltaTime;
+            if (ShowRangeTimer >= 3f)
+            {
+                DisActiveRange();
+                ShowRangeTimer = 0;
+                Ismoved = false;
+            }
+        }
     }
 
     public bool CanMoveToDir(Vector2 dir)
@@ -36,6 +34,7 @@ public class Tower : MonoBehaviour
         if (!hit)
         {
             transform.Translate(dir);
+            //ShowRange();
             return true;
         }
         
@@ -51,14 +50,6 @@ public class Tower : MonoBehaviour
         transform.position = position0;
     }
 
-    private void GiveHealthVolumn()
-    {
-        HealthBar healthBar = GetComponentInChildren<HealthBar>();
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(InitialHealthVolume);
-        }
-    }
 
     public void TakeDamege(float damage)
     {
@@ -73,16 +64,23 @@ public class Tower : MonoBehaviour
         }
     }
 
-    public void Purchase()
+    public void ShowRange()
     {
-        //if 金币数量大于PerchasePrize
-        Instantiate(gameObject);
+        range = GetComponentInChildren<TowerAttackRange>();
+        if (range != null)
+        {
+            range.Active();
+            Ismoved = true;
+            ShowRangeTimer = 0;
+            //Invoke("DisActiveRange", 3f);
+        }
     }
 
-    public void Sell()
+    private void DisActiveRange()
     {
-        //if售出bottun被点击
-        Destroy(gameObject);
-        //金币+SellingPrices
+        if (range != null)
+        {
+            range.Disactive();
+        }
     }
 }

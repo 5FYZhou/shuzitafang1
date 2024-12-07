@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class Tower2 : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject attackRangePrefab;
+    [SerializeField]
+    private GameObject healthBarPrefab;
+    private GameObject towerRange;
+    private GameObject bar;
 
     //private Vector3 position;
     [SerializeField]
     private GameObject Electricpath;
-
-    public LayerMask layer;
+    [SerializeField]
+    private LayerMask layer;
     //攻击间隔、范围
     [SerializeField]
     private float AttackCooldown;
@@ -25,10 +31,31 @@ public class Tower2 : MonoBehaviour
     {
         get { return AttackPower; }
     }
-    
+
+    //血量
+    [SerializeField]
+    private float initialHealthVolume;
+    public float InitialHealthVolume
+    {
+        get { return initialHealthVolume; }
+    }
+    //价格
+    [SerializeField]
+    private float purchasePrice;
+    public float PurchasePrice
+    {
+        get { return purchasePrice; }
+    }
+    [SerializeField]
+    private float sellingPrice;
+    public float SellingPrice
+    {
+        get { return sellingPrice; }
+    }
+
     void Start()
     {
-        GiveAttackRange();
+        CreatChild();
         //position = transform.position;
         if (FindObjectsOfType<Tower2Manager>().Count() < 1)
         {
@@ -48,6 +75,34 @@ public class Tower2 : MonoBehaviour
         }
     }
 
+    private void GiveHealthVolumn()
+    {
+        HealthBar healthBar = GetComponentInChildren<HealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(InitialHealthVolume);
+        }
+    }
+
+    private void CreatChild()
+    {
+        Transform AttackRange = transform.Find("TowerAttakRange");
+        if (!AttackRange)
+        {
+            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
+            towerRange.transform.SetParent(this.transform);
+            GiveAttackRange();
+        }
+        Transform HealthBar = transform.Find("HealthBarCanvas");
+        if (!HealthBar)
+        {
+            Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.8f, 0f);
+            bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
+            bar.transform.SetParent(this.transform);
+            GiveHealthVolumn();
+        }
+    }
+
     /*public bool PositionChanged()
     {
         if(!Vector3.Equals(position, transform.position))
@@ -60,23 +115,26 @@ public class Tower2 : MonoBehaviour
 
     public bool CanAlignedWith(Tower2 other)
     {
-        Vector3 startPos = transform.position;
-        Vector3 endPos = other.transform.position;
-        bool IsalignedWith = (Mathf.Approximately(transform.position.x, other.transform.position.x) && Mathf.Abs(transform.position.y - other.transform.position.y) <= 8 && Mathf.Abs(transform.position.y - other.transform.position.y) > 1)
-            || (Mathf.Approximately(transform.position.y, other.transform.position.y) && Mathf.Abs(transform.position.x - other.transform.position.x) <= 8 && Mathf.Abs(transform.position.x - other.transform.position.x) > 1);
-        if (IsalignedWith)
+        if (this && other)
         {
-            // 使用Physics2D.Raycast检测塔之间的路径
-            Vector3 dir = (endPos - startPos).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(startPos + dir * 0.6f, dir, Vector3.Distance(startPos, endPos), layer);
-
-            // 如果射线检测到的物体不是目标塔，说明路径被其他物体阻挡
-            if (hit.collider != null && hit.collider.gameObject != other.gameObject)
+            Vector3 startPos = transform.position;
+            Vector3 endPos = other.transform.position;
+            bool IsalignedWith = (Mathf.Approximately(transform.position.x, other.transform.position.x) && Mathf.Abs(transform.position.y - other.transform.position.y) <= 8 && Mathf.Abs(transform.position.y - other.transform.position.y) > 1)
+                || (Mathf.Approximately(transform.position.y, other.transform.position.y) && Mathf.Abs(transform.position.x - other.transform.position.x) <= 8 && Mathf.Abs(transform.position.x - other.transform.position.x) > 1);
+            if (IsalignedWith)
             {
-                //Debug.Log("hasTower");
-                return false;  // 路径有障碍物
+                // 使用Physics2D.Raycast检测塔之间的路径
+                Vector3 dir = (endPos - startPos).normalized;
+                RaycastHit2D hit = Physics2D.Raycast(startPos + dir * 0.6f, dir, Vector3.Distance(startPos, endPos), layer);
+
+                // 如果射线检测到的物体不是目标塔，说明路径被其他物体阻挡
+                if (hit.collider != null && hit.collider.gameObject != other.gameObject)
+                {
+                    //Debug.Log("hasTower");
+                    return false;  // 路径有障碍物
+                }
+                return true;  // 路径畅通
             }
-            return true;  // 路径畅通
         }
         return false;
     }

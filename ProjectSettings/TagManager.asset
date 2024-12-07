@@ -7,6 +7,10 @@ TagManager:
   - Tower
   - ElectricPath
   - Enemy
+  - Plus
+  - Minus
+  - Equal
+  - TowerM
   layers:
   - Default
   - TransparentFX
@@ -19,8 +23,8 @@ TagManager:
   - Wall
   - Tower
   - Enemy
-  - 
-  - 
+  - EqualTower
+  - PlayerTower
   - 
   - 
   - 

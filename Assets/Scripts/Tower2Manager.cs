@@ -33,17 +33,24 @@ public class Tower2Manager : MonoBehaviour
         }
     }
 
-    /*private bool Tower2PositionChanged()
+    private void Remove(ElectricPath elecPath)
     {
-        foreach(Tower2 tower2 in towers)
+        List<ElectricPath> elecPaths = new List<ElectricPath>();
+        foreach (ElectricPath path in electricPaths)
         {
-            if (tower2.PositionChanged())
+            if (path != elecPath)
             {
-                return true;
+                elecPaths.Add(path);
             }
         }
-        return false;
-    }*/
+        electricPaths = elecPaths;
+    }
+
+    public void DestroyElectricPath(ElectricPath electricPath)
+    {
+        Destroy(electricPath.gameObject);
+        Remove(electricPath);
+    }
 
     // 检查是否有两个塔产生电流
     private void CheckElectricCurrentBetweenTowers()
@@ -54,11 +61,16 @@ public class Tower2Manager : MonoBehaviour
             {
                 Tower2 towerA = towers[i];
                 Tower2 towerB = towers[j];
-                if (towerA.CanAlignedWith(towerB) && !IsElectricityAlreadyExists(towerA,towerB))  // 如果塔在同一水平或垂直线上，并且路径畅通 +没有电流
+                ElectricPath electricPath = IsElectricityAlreadyExists(towerA, towerB);
+                if (towerA.CanAlignedWith(towerB) && !electricPath)  // 如果塔在同一水平或垂直线上，并且路径畅通 +没有电流
                 {
                     // 创建电流路径
                     //Debug.Log($"creat between {towerA} and {towerB}");
                     CreateElectricPathCollider(towerA, towerB);
+                }
+                else if ((!towerA.CanAlignedWith(towerB) && !towerB.CanAlignedWith(towerA)) && electricPath)
+                {
+                    DestroyElectricPath(electricPath);
                 }
                 //else
                 //{
@@ -117,16 +129,16 @@ public class Tower2Manager : MonoBehaviour
            // }
     }
 
-    private bool IsElectricityAlreadyExists(Tower2 tower1, Tower2 tower2)
+    private ElectricPath IsElectricityAlreadyExists(Tower2 tower1, Tower2 tower2)
     {
         foreach (var electricity in electricPaths)
         {
             if ((electricity.towerA == tower1 && electricity.towerB == tower2) ||
                 (electricity.towerA == tower2 && electricity.towerB == tower1))
             {
-                return true;  // 已经存在电流连接
+                return electricity;  // 已经存在电流连接
             }
         }
-        return false;
+        return null;
     }
 }

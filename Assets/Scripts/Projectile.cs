@@ -22,12 +22,9 @@ public class Projectile : MonoBehaviour
         if (target != null/*&&target.IsActive怪物活着*/)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, Time.deltaTime * parent.ProjectileSpeed);
-            /*//子弹方向
             Vector2 dir = target.transform.position - transform.position;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            */
-
         }
         /*else if (!target.isActive)
         {

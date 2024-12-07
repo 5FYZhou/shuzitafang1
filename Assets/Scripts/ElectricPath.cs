@@ -32,19 +32,6 @@ public class ElectricPath : MonoBehaviour
         Damage = towerA.Damage;
     }
 
-    private void Remove(Tower2Manager manager, ElectricPath elecPath)
-    {
-        List<ElectricPath> elecPaths = new List<ElectricPath>();
-        foreach (ElectricPath path in manager.electricPaths)
-        {
-            if (path != elecPath)
-            {
-                elecPaths.Add(path);
-            }
-        }
-        manager.electricPaths = elecPaths;
-    }
-
     private void Remove(Monster Detarget)
     {
         List<Monster> Newtargets = new List<Monster>();
@@ -60,19 +47,25 @@ public class ElectricPath : MonoBehaviour
 
     private void CheckPositionChanges()
     {
-        if ((towerA.GetComponent<Tower2>().CanAlignedWith(towerB) || towerB.GetComponent<Tower2>().CanAlignedWith(towerA)) && (!Vector3.Equals(PrePosA, towerA.transform.position) || !Vector3.Equals(PrePosB, towerB.transform.position)))
+        if (towerA && towerB && (towerA.GetComponent<Tower2>().CanAlignedWith(towerB) || towerB.GetComponent<Tower2>().CanAlignedWith(towerA)) && (!Vector3.Equals(PrePosA, towerA.transform.position) || !Vector3.Equals(PrePosB, towerB.transform.position)))
         {
             //if (!Vector3.Equals(PrePosA, towerA.transform.position) || !Vector3.Equals(PrePosB, towerB.transform.position))
             //{
-//                Debug.Log($"ChangePosition{towerA}{towerB}");
+                Debug.Log($"ChangePosition{towerA}{towerB}");
                 PrePosA = towerA.transform.position;
                 PrePosB = towerB.transform.position;
                 transform.position = (PrePosA + PrePosB) / 2;
                 Vector2 scale = transform.localScale;
-                scale.x = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y);
+                scale.x = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 1f;
                 transform.localScale = scale;
            // }
         }
+        
+        else if(towerA == null || towerB == null)
+        {
+            tower2Manager.DestroyElectricPath(this);
+        }
+        /*
         else if(!towerA.GetComponent<Tower2>().CanAlignedWith(towerB))
         {
 //            Debug.Log($"Destroy{towerA}{towerB}");
@@ -80,7 +73,7 @@ public class ElectricPath : MonoBehaviour
             Remove(tower2Manager, this);
             //towerA.Delect(towerA.electricPaths, gameObject);
             //towerB.Delect(towerB.electricPaths, gameObject);
-        }
+        }*/
     }
 
     private void Attack()

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8695205185914096487
+--- !u!1 &4353718986000330587
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6731878494994245297}
-  - component: {fileID: 6426348500120191448}
-  - component: {fileID: 2174034539529312575}
-  - component: {fileID: 314209796315108599}
-  - component: {fileID: 6764454245451701033}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Player
+  - component: {fileID: 7278905789824266925}
+  - component: {fileID: 4948175301748378177}
+  - component: {fileID: 1195961600171337497}
+  - component: {fileID: 4077414030953183204}
+  - component: {fileID: 1306786047099019022}
+  m_Layer: 9
+  m_Name: TowerM
+  m_TagString: TowerM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6731878494994245297
+--- !u!4 &7278905789824266925
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8695205185914096487}
+  m_GameObject: {fileID: 4353718986000330587}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6426348500120191448
+--- !u!212 &4948175301748378177
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8695205185914096487}
+  m_GameObject: {fileID: 4353718986000330587}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,9 +75,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: -66432745, guid: e095cc303ab048f4091b6cc8575a3440, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.002551152, g: 0.8113208, b: 0.40416563, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,13 +87,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2174034539529312575
+--- !u!61 &1195961600171337497
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8695205185914096487}
+  m_GameObject: {fileID: 4353718986000330587}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -123,23 +123,23 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9375, y: 1.125}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &314209796315108599
+--- !u!50 &4077414030953183204
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8695205185914096487}
+  m_GameObject: {fileID: 4353718986000330587}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -158,25 +158,20 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
---- !u!114 &6764454245451701033
+  m_Constraints: 0
+--- !u!114 &1306786047099019022
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8695205185914096487}
+  m_GameObject: {fileID: 4353718986000330587}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e35ad7c5e0935e4eae725d93684fd55, type: 3}
+  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectlayer:
     serializedVersion: 2
-    m_Bits: 768
-  HasTower: 0
-  TowerPrefabs:
-  - {fileID: 5041529714056394640, guid: 758303d6cfec77d448d0967064947b7b, type: 3}
-  - {fileID: 4744128919181119991, guid: 24a49ec3c33a74b4f8deecfcb634a967, type: 3}
-  - {fileID: 7413090924474089021, guid: 4c0a2558c6393644fa044d05e3ab51f9, type: 3}
-  - {fileID: 222648210861155341, guid: e73d03006e431ac47b9be5a6ca837958, type: 3}
+    m_Bits: 2816
+  Ismoved: 0
