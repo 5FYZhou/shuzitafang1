@@ -4,13 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Tower
   - ElectricPath
-  - Enemy
   - Plus
   - Minus
   - Equal
   - TowerM
+  - enemy
+  - tower
+  - By
+  - Divide
+  - Surplus
   layers:
   - Default
   - TransparentFX
