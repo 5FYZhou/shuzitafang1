@@ -11,10 +11,10 @@ public class Player : MonoBehaviour
     public bool HasTower;
     [SerializeField]
     private List<GameObject> TowerPrefabs = new List<GameObject>();
-    private GameObject NewTower = null;
-    private float Timer = 0;
-    private int I = -1;
-    private Equal EqualI;
+    public GameObject NewTower = null;
+    //private float Timer = 0;
+    //private int I = -1;
+    //private Equal EqualI;
 
     private Renderer render;
 
@@ -31,35 +31,21 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             moveDir = Vector2.right;
-            animator.SetBool("Right", true);
-            animator.SetBool("Down", false);
-            animator.SetBool("Up", false);
-            animator.SetBool("Left", false);
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             moveDir = Vector2.left;
-            animator.SetBool("Left", true);
-            animator.SetBool("Down", false);
-            animator.SetBool("Right", false);
-            animator.SetBool("Up", false);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             moveDir = Vector2.up;
-            animator.SetBool("Up", true);
-            animator.SetBool("Down", false);
-            animator.SetBool("Right", false);
-            animator.SetBool("Left", false);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             moveDir = Vector2.down;
-            animator.SetBool("Down", true);
-            animator.SetBool("Right", false);
-            animator.SetBool("Up", false);
-            animator.SetBool("Left", false);
         }
+
+        SetDirAnimation(moveDir);
 
         if (moveDir != Vector2.zero)
         {
@@ -70,7 +56,7 @@ public class Player : MonoBehaviour
         }
         moveDir = Vector2.zero;
 
-        AddTowerCoolDown();
+        //AddTowerCoolDown();
     }
 
     bool CanMoveToDir(Vector2 dir)
@@ -84,6 +70,7 @@ public class Player : MonoBehaviour
             if (box != null)
             {
                 box.ShowRange();
+                box.ShowHealthBar();
                 //Debug.Log($"{hit.collider.name}show");
                 if (box.CanMoveToDir(dir))
                     return true;
@@ -103,7 +90,7 @@ public class Player : MonoBehaviour
     void Move(Vector2 dir)
     {
         transform.Translate(dir);
-        ShowTowerRange();
+        ShowTower();
     }
 
     public void AddTower(int towerdigit)
@@ -123,6 +110,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void AddPreTower(GameObject preTower)
+    {
+        if (!HasTower)
+        {
+            NewTower = preTower;
+            NewTower.transform.SetParent(this.transform);
+            HasTower = true;
+            NewTower.GetComponent<Renderer>().enabled = false;
+            NewTower.layer = 12;
+        }
+    }
+
     public void DelectTower()
     {
         if (HasTower && NewTower != null)
@@ -132,7 +131,7 @@ public class Player : MonoBehaviour
             HasTower = false;
         }
     }
-
+    /*
     private void AddTowerCoolDown()
     {
         if(HasTower && NewTower == null)
@@ -150,9 +149,9 @@ public class Player : MonoBehaviour
                 //SetTransparency(255);
             }
         }
-    }
+    }*/
 
-    private void ShowTowerRange()
+    private void ShowTower()
     {
         if (HasTower && NewTower != null)
         {
@@ -160,6 +159,7 @@ public class Player : MonoBehaviour
             if (tower != null)
             {
                 tower.ShowRange();
+                tower.ShowHealthBar();
             }
         }
     }
@@ -170,12 +170,12 @@ public class Player : MonoBehaviour
         Color currentColor = renderer.material.color;
         renderer.material.color = new Color(currentColor.r, currentColor.g, currentColor.b, newAlpha);
     }
-
+    /*
     public void GiveI(Equal equal, int i)
     {
         EqualI = equal;
         I = i;
-    }
+    }*/
 
     private void SetDirAnimation(Vector3 dir)
     {

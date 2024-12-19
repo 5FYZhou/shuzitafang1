@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: -1477908089, guid: 4a8b2f4546b54c5468b9f566edd435c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -176,7 +176,9 @@ MonoBehaviour:
   detectlayer:
     serializedVersion: 2
     m_Bits: 2816
-  Ismoved: 0
+  towerLayer:
+    serializedVersion: 2
+    m_Bits: 6656
 --- !u!114 &2850789171836826858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackRangePrefab: {fileID: 5224493115100585899, guid: 5d964f912b8de3b4c8a497c1efbd048f, type: 3}
   healthBarPrefab: {fileID: 2399184445945375336, guid: 9e24471d803c431479e9960777455649, type: 3}
+  sellButtonPrefab: {fileID: 5620365566833145275, guid: 18785eb55bcb17e4691e1ddaf5743a1a, type: 3}
   Electricpath: {fileID: 180767883711247938, guid: d50a06937a6b6f0408279782cd4fe5d5, type: 3}
   electricSprite: {fileID: -380475597, guid: a751c46abd324a84aaeaaedbbdb7e460, type: 3}
   layer:

@@ -104,7 +104,7 @@ public class Tower2Manager : MonoBehaviour
         path.transform.localScale = scale;
 
         // 计算电流路径的朝向
-        /*float */angle = Mathf.Atan2(positionB.y - positionA.y, positionB.x - positionA.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(positionB.y - positionA.y, positionB.x - positionA.x) * Mathf.Rad2Deg;
         path.transform.rotation = Quaternion.Euler(0, 0, angle);
 
         // 创建电流路径的Collider

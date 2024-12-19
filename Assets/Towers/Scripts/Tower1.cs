@@ -12,6 +12,9 @@ public class Tower1 : MonoBehaviour
     private GameObject healthBarPrefab;
     private GameObject towerRange;
     private GameObject bar;
+    [SerializeField]
+    private GameObject sellButtonPrefab;
+    private GameObject button;
 
     //¹¥»÷Ä¿±ê
     [SerializeField]
@@ -70,9 +73,15 @@ public class Tower1 : MonoBehaviour
     //¶¯»­
     private Animator Tower1Animator;
 
-    void Start()
+    private void Awake()
     {
         CreatChild();
+    }
+
+    void Start()
+    {
+        //CreatChild();
+        CreatButton();
         Tower1Animator = GetComponent<Animator>();
     }
     void Update()
@@ -99,15 +108,17 @@ public class Tower1 : MonoBehaviour
         }
     }
 
+    private void GiveSellButton()
+    {
+        SellTower sellTower = GetComponentInChildren<SellTower>();
+        if (sellTower != null)
+        {
+            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
+        }
+    }
+
     private void CreatChild()
     {
-        Transform AttackRange = transform.Find("TowerAttakRange");
-        if (!AttackRange)
-        {
-            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
-            towerRange.transform.SetParent(this.transform);
-            GiveAttackRange();
-        }
         Transform HealthBar = transform.Find("HealthBarCanvas");
         if (!HealthBar)
         {
@@ -115,6 +126,28 @@ public class Tower1 : MonoBehaviour
             bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
             bar.transform.SetParent(this.transform);
             GiveHealthVolumn();
+        }
+        Transform AttackRange = transform.Find("TowerAttakRange");
+        if (!AttackRange)
+        {
+            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
+            towerRange.transform.SetParent(this.transform);
+            GiveAttackRange();
+        }
+    }
+
+    private void CreatButton()
+    {
+        if (gameObject.layer != 11 && gameObject.layer != 12)
+        {
+            Transform SellButton = transform.Find("SellButtonCanvas");
+            if (!SellButton)
+            {
+                Vector3 position = new Vector3(transform.position.x, transform.position.y - 1f, 0f);
+                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
+                button.transform.SetParent(this.transform);
+                GiveSellButton();
+            }
         }
     }
 

@@ -4,27 +4,15 @@ public class Tower : MonoBehaviour
 {
     [SerializeField]
     private LayerMask detectlayer;
-    TowerAttackRange range;
-    private float ShowRangeTimer;
-    public bool Ismoved;
+    [SerializeField]
+    private LayerMask towerLayer;
 
     private void Start()
     {
         //range = GetComponentInChildren<TowerAttackRange>();
-        ShowRangeTimer = 0;
-    }
-
-    private void Update()
-    {
-        if (Ismoved)
+        //if(this.gameObject.layer == 11)
         {
-            ShowRangeTimer += Time.deltaTime;
-            if (ShowRangeTimer >= 3f)
-            {
-                DisActiveRange();
-                ShowRangeTimer = 0;
-                Ismoved = false;
-            }
+            //RemoveButton();
         }
     }
 
@@ -66,21 +54,52 @@ public class Tower : MonoBehaviour
 
     public void ShowRange()
     {
-        range = GetComponentInChildren<TowerAttackRange>();
+        TowerAttackRange range = GetComponentInChildren<TowerAttackRange>();
         if (range != null)
         {
-            range.Active();
-            Ismoved = true;
-            ShowRangeTimer = 0;
-            //Invoke("DisActiveRange", 3f);
+            range.Show();
+        }
+    }
+    public void ShowHealthBar()
+    {
+        HealthBar health = this.GetComponentInChildren<HealthBar>();
+        if (health != null)
+        {
+            health.Show();
+        }
+    }
+    public void ShowButton()
+    {
+        SellTower button = GetComponentInChildren<SellTower>();
+        if (button != null)
+        {
+            button.Show();
         }
     }
 
-    private void DisActiveRange()
+    private void OnMouseDown()
     {
-        if (range != null)
+        //if (Input.GetMouseButtonDown(0))
+        // 获取鼠标在屏幕上的位置
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        // 发射射线并检测是否击中带有碰撞体的Tower
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, towerLayer);
+
+        if (hit.collider != null)
         {
-            range.Disactive();
+            //Debug.Log(hit.collider.name);
+            //if (hit.collider.gameObject.CompareTag("tower")&&hit.collider.gameObject==this.gameObject)
+            {
+                hit.collider.GetComponent<Tower>().ShowRange();
+                hit.collider.GetComponent<Tower>().ShowHealthBar();
+                hit.collider.GetComponent<Tower>().ShowButton();
+            }
         }
+    }
+
+    public void DestroyTower()
+    {
+        Destroy(this.gameObject);
     }
 }

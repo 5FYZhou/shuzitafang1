@@ -7,11 +7,15 @@ public class HealthBar : MonoBehaviour
     private float InitialHealth;
     [SerializeField]
     private float health;
+    public float Health
+    {
+        get { return health; }
+    }
 
     private float Timer = 0;
     private Image render;
     private Image backgroundrender;
-    private bool IsAttacked = true;
+    public bool show = true;
 
     private void Start()
     {
@@ -21,7 +25,7 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
-        if (IsAttacked)
+        if (show)
         {
             render.enabled = true;
             backgroundrender.enabled = true;
@@ -30,7 +34,7 @@ public class HealthBar : MonoBehaviour
             if (Timer >= 3)
             {
                 Timer = 0;
-                IsAttacked = false;
+                show = false;
 
                 render.enabled = false;
                 backgroundrender.enabled = false;
@@ -50,8 +54,21 @@ public class HealthBar : MonoBehaviour
         Vector2 scale = transform.localScale;
         scale.x = health / InitialHealth * 1f;
         transform.localScale = scale;
-        IsAttacked = true;
-        Timer = 0;
+        Show();
         return health;
+    }
+
+    public void ChangeHealth(float newhealth)
+    {
+        health = newhealth;
+        Vector2 scale = transform.localScale;
+        scale.x = health / InitialHealth * 1f;
+        transform.localScale = scale;
+    }
+
+    public void Show()
+    {
+        show = true;
+        Timer = 0;
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
@@ -8,6 +9,12 @@ public class Projectile : MonoBehaviour
 
     private Tower1 parent;
 
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         MoveToTarget();
@@ -21,6 +28,10 @@ public class Projectile : MonoBehaviour
 
     private void MoveToTarget()
     {
+        if(parent == null)
+        {
+            Destroy(gameObject);
+        }
         if (target != null/*&&target.IsActive怪物活着*/)
         {
             transform.position = Vector2.MoveTowards(transform.position, target.transform.position, Time.deltaTime * parent.ProjectileSpeed);
@@ -34,7 +45,7 @@ public class Projectile : MonoBehaviour
             GameObject.Instance.Pool.ReleaseObject(gameObject);
         }怪物离开地图或死亡时子弹消失*/
         else
-        {
+        { 
             Destroy(gameObject);
         }
     }
@@ -45,9 +56,16 @@ public class Projectile : MonoBehaviour
         {
             if (target.gameObject == other.gameObject)
             {
+                animator.SetTrigger("Boom");
+                //Debug.Log("Boom");
                 target.GetComponent<enemy>().attack(parent.Damage);
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void DestroyGameObject()
+    {
+        Destroy(this.gameObject);
     }
 }

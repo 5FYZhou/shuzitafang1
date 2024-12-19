@@ -7,6 +7,9 @@ public class Tower3 : MonoBehaviour
     [SerializeField]
     private GameObject healthBarPrefab;
     private GameObject bar;
+    [SerializeField]
+    private GameObject sellButtonPrefab;
+    private GameObject button;
 
     //ÑªÁ¿
     [SerializeField]
@@ -29,16 +32,15 @@ public class Tower3 : MonoBehaviour
         get { return sellingPrice; }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         CreatChild();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        
+        //CreatChild();
+        CreatButton();
     }
 
     private void GiveHealthVolumn()
@@ -47,6 +49,15 @@ public class Tower3 : MonoBehaviour
         if (healthBar != null)
         {
             healthBar.SetHealth(InitialHealthVolume);
+        }
+    }
+
+    private void GiveSellButton()
+    {
+        SellTower sellTower = GetComponentInChildren<SellTower>();
+        if (sellTower != null)
+        {
+            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
         }
     }
 
@@ -59,6 +70,21 @@ public class Tower3 : MonoBehaviour
             bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
             bar.transform.SetParent(this.transform);
             GiveHealthVolumn();
+        }
+    }
+
+    private void CreatButton()
+    {
+        if (gameObject.layer != 11 && gameObject.layer != 12)
+        {
+            Transform SellButton = transform.Find("SellButtonCanvas");
+            if (!SellButton)
+            {
+                Vector3 position = new Vector3(transform.position.x, transform.position.y - 1f, 0f);
+                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
+                button.transform.SetParent(this.transform);
+                GiveSellButton();
+            }
         }
     }
 }

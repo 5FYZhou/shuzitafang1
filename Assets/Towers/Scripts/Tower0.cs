@@ -7,6 +7,9 @@ public class Tower0 : MonoBehaviour
     [SerializeField]
     private GameObject healthBarPrefab;
     private GameObject bar;
+    [SerializeField]
+    private GameObject sellButtonPrefab;
+    private GameObject button;
 
     private float Timer = 0;
     [SerializeField]
@@ -38,9 +41,14 @@ public class Tower0 : MonoBehaviour
 
     private Animator animator;
 
-    private void Start()
+    private void Awake()
     {
         CreatChild();
+    }
+    private void Start()
+    {
+        //CreatChild();
+        CreatButton();
         animator = GetComponent<Animator>();
     }
 
@@ -58,6 +66,15 @@ public class Tower0 : MonoBehaviour
         }
     }
 
+    private void GiveSellButton()
+    {
+        SellTower sellTower = GetComponentInChildren<SellTower>();
+        if(sellTower != null)
+        {
+            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
+        }
+    }
+
     private void CreatChild()
     {
         Transform HealthBar = transform.Find("HealthBarCanvas");
@@ -67,6 +84,21 @@ public class Tower0 : MonoBehaviour
             bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
             bar.transform.SetParent(this.transform);
             GiveHealthVolumn();
+        }
+    }
+
+    private void CreatButton()
+    {
+        if (gameObject.layer != 11 && gameObject.layer != 12)
+        {
+            Transform SellButton = transform.Find("SellButtonCanvas");
+            if (!SellButton)
+            {
+                Vector3 position = new Vector3(transform.position.x, transform.position.y - 1f, 0f);
+                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
+                button.transform.SetParent(this.transform);
+                GiveSellButton();
+            }
         }
     }
 
