@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class ElectricPath : MonoBehaviour
 {
+    private SpriteRenderer tileRenderer;
+    private BoxCollider2D boxCollider;
+
     public Tower2 towerA;
     public Tower2 towerB;
     private Tower2Manager tower2Manager;
@@ -12,16 +16,27 @@ public class ElectricPath : MonoBehaviour
     private bool canAttack = true;
     private float AttackTimer = 0;
     private float AttackCooldown;
+    [SerializeField]
     private float Damage;
     private List<GameObject> targets = new List<GameObject>();
 
+    private float damageA;
+    private float damageB;
+
     private Animator towerAanimator;
     private Animator towerBanimator;
+
+    private void Start()
+    {
+        tileRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
 
     void Update()
     {
         CheckPositionChanges();
         Attack();
+        ChangeDamage();
         //Debug.Log(targets.Count);
     }
 
@@ -33,7 +48,9 @@ public class ElectricPath : MonoBehaviour
         PrePosB = towerB.transform.position;
         tower2Manager = Manager;
         AttackCooldown = towerA.attackCooldown;
-        Damage = towerA.Damage;
+        Damage = towerA.Damage > towerB.Damage ? towerA.Damage : towerB.Damage;
+        damageA = towerA.Damage;
+        damageB = towerB.Damage;
         towerAanimator = towerA.animator;
         towerBanimator = towerB.animator;
     }
@@ -61,10 +78,13 @@ public class ElectricPath : MonoBehaviour
                 PrePosA = towerA.transform.position;
                 PrePosB = towerB.transform.position;
                 transform.position = (PrePosA + PrePosB) / 2;
-                Vector2 scale = transform.localScale;
-                scale.x = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 1f;
-                transform.localScale = scale;
-           // }
+            /*Vector2 scale = transform.localScale;
+            scale.x = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 1f;
+            transform.localScale = scale;*/
+            float width = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 1f;
+            tileRenderer.size = new Vector2(width, 0.1f);
+            boxCollider.size = new Vector2(width, 0.2f);
+            // }
         }
         
         else if(towerA == null || towerB == null)
@@ -80,11 +100,6 @@ public class ElectricPath : MonoBehaviour
             //towerA.Delect(towerA.electricPaths, gameObject);
             //towerB.Delect(towerB.electricPaths, gameObject);
         }*/
-    }
-
-    public void AddSprites(Sprite electricSprite)
-    {
-
     }
 
     private void Attack()
@@ -125,6 +140,26 @@ public class ElectricPath : MonoBehaviour
         if (other.CompareTag("enemy"))
         {
             Remove(other.gameObject);
+        }
+    }
+
+    public void ChangeDamage()
+    {
+        /*if (towerA.Damage > damageA)
+        {
+            Damage = towerA.Damage;
+            damageA = towerA.Damage;
+        }
+        if (towerB.Damage > damageB)
+        {
+            Damage = towerB.Damage;
+            damageB = towerB.Damage;
+        }*/
+        float damage = towerA.Damage > towerB.Damage ? towerA.Damage : towerB.Damage;
+        if (damage != Damage)
+        {
+            Damage = damage;
+            //Debug.Log(Damage);
         }
     }
 }

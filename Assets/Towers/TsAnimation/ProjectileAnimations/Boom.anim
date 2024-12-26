@@ -91,10 +91,17 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.5833333
-    functionName: DestroyGameObject()
+  - time: 0.083333336
+    functionName: AttackTarget
     data: 
-    objectReferenceParameter: {fileID: 2884351283919886167, guid: 1b3a3ea2ee3c7c24bb0bedf7f92f454d, type: 3}
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
+    functionName: DestroyGameObject
+    data: 
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

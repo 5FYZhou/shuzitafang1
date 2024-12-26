@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower1 : MonoBehaviour
+public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
 {
     /*[SerializeField]
     private string projectileType;*/
@@ -188,14 +188,14 @@ public class Tower1 : MonoBehaviour
         projectile.GetComponent<Projectile>().Initialize(this);
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("enemy"))
         {
             monsters.Enqueue(other.gameObject);
         }
     }
-    public void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("enemy"))
         {
@@ -219,5 +219,14 @@ public class Tower1 : MonoBehaviour
             else
                 target = null;
         }
+    }
+
+    public void Strengthen(float per)
+    {
+        AttackPower = AttackPower * (per + 1);
+    }
+    public void Reduce(float per)
+    {
+        AttackPower = AttackPower / (per + 1);
     }
 }

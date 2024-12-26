@@ -200,7 +200,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   AttackCooldown: 2
-  AttackRange: 8
+  AttackRange: 16
   AttackPower: 10
   initialHealthVolume: 25
   purchasePrice: 50

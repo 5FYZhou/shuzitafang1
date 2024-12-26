@@ -99,9 +99,15 @@ public class Tower2Manager : MonoBehaviour
         GameObject path = Instantiate(electricPathPrefab, (positionA + positionB) / 2, Quaternion.identity);
 
         //缩放
-        Vector2 scale = path.transform.localScale;
+        /*Vector2 scale = path.transform.localScale;
         scale.x = Mathf.Abs(positionA.x - positionB.x) + Mathf.Abs(positionA.y - positionB.y) - 1f;
-        path.transform.localScale = scale;
+        path.transform.localScale = scale;*/
+        float width = Mathf.Abs(positionA.x - positionB.x) + Mathf.Abs(positionA.y - positionB.y) - 1f;
+        SpriteRenderer spriteRenderer = path.GetComponent<SpriteRenderer>();
+        spriteRenderer.size = new Vector2(width, 0.1f);
+
+        BoxCollider2D boxCollider = path.GetComponent<BoxCollider2D>();
+        boxCollider.size = new Vector2(width, 0.2f);
 
         // 计算电流路径的朝向
         float angle = Mathf.Atan2(positionB.y - positionA.y, positionB.x - positionA.x) * Mathf.Rad2Deg;

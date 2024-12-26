@@ -7,6 +7,9 @@ using System;
 
 public class Equal : MonoBehaviour
 {
+    [SerializeField]
+    private float CoolDownTime;
+
     private Player player;
 
     [SerializeField]
@@ -262,7 +265,7 @@ public class Equal : MonoBehaviour
                 GetComponent<SpriteRenderer>().color = Color.grey;
 
                 Timer[i] += Time.deltaTime;
-                if (Timer[i] >= 10)
+                if (Timer[i] >= CoolDownTime)
                 {
                     //Debug.Log("cooldownfalse" + i);
                     HasInstantiate[i] = false;
@@ -279,7 +282,7 @@ public class Equal : MonoBehaviour
                 GetComponent<SpriteRenderer>().color = Color.grey;
 
                 Timer[i] += Time.deltaTime;
-                if (Timer[i] >= 10)
+                if (Timer[i] >= CoolDownTime)
                 {
                     //Debug.Log("cooldownfalseMMMMM" + i);
                     HasInstantiate[i] = false;

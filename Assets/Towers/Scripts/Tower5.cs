@@ -1,7 +1,8 @@
-using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
+public class Tower5 : MonoBehaviour,IStrengthenTowerAttackPower
 {
     [SerializeField]
     private GameObject attackRangePrefab;
@@ -13,22 +14,31 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
     private GameObject sellButtonPrefab;
     private GameObject button;
 
+    //攻击目标
     [SerializeField]
-    private GameObject Electricpath;
-    [SerializeField]
-    private Sprite electricSprite;
+    private GameObject target;
+    public GameObject Target
+    {
+        get { return target; }
+    }
 
+    private Queue<GameObject> monsters = new Queue<GameObject>();
+    //攻击
+    private bool canAttack = true;
+    public GameObject projectilePrefab;
     [SerializeField]
-    private LayerMask layer;
+    private float projectileSpeed;
+    public float ProjectileSpeed
+    {
+        get { return projectileSpeed; }
+    }
     //攻击间隔、范围
+    private float AttackTimer = 0;
     [SerializeField]
     private float AttackCooldown;
-    public float attackCooldown
-    {
-        get { return AttackCooldown; }
-    }
     [SerializeField]
     private float AttackRange;
+
     //攻击力
     [SerializeField]
     private float AttackPower;
@@ -58,7 +68,8 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
         get { return sellingPrice; }
     }
 
-    public Animator animator;
+    //动画
+    //private Animator Tower1Animator;
 
     private void Awake()
     {
@@ -69,25 +80,20 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
     {
         //CreatChild();
         CreatButton();
-        //position = transform.position;
-        if (FindObjectsOfType<Tower2Manager>().Count() < 1)
-        {
-            GameObject gameObject = new GameObject("Tower2manager");
-            gameObject.AddComponent<Tower2Manager>();
-            gameObject.GetComponent<Tower2Manager>().electricPathPrefab = Electricpath;
-            gameObject.GetComponent<Tower2Manager>().electricSprite = electricSprite;
-        }
-
-        animator = GetComponent<Animator>();
+        //Tower1Animator = GetComponent<Animator>();
     }
-    
+    void Update()
+    {
+        Attack();
+        //Debug.Log(monsters.Count);
+    }
+
     private void GiveAttackRange()
     {
         Vector2 range = new Vector2(AttackRange, AttackRange);
-        TowerAttackRange towerRange = GetComponentInChildren<TowerAttackRange>();
         if (towerRange)
         {
-            towerRange.SetAttackRange(range);
+            towerRange.GetComponent<TowerAttackRange>().SetAttackRange(range);
         }
     }
 
@@ -143,55 +149,75 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
         }
     }
 
-    /*public bool PositionChanged()
+    private void Attack()
     {
-        if(!Vector3.Equals(position, transform.position))
+        if (!canAttack)
         {
-            position = transform.position;
-            return true;
-        }
-        return false;
-    }*/
-
-    public bool CanAlignedWith(Tower2 other)
-    {
-        if (this && other)
-        {
-            Vector3 startPos = transform.position;
-            Vector3 endPos = other.transform.position;
-            bool IsalignedWith = (Mathf.Approximately(transform.position.x, other.transform.position.x) && Mathf.Abs(transform.position.y - other.transform.position.y) <= 8 && Mathf.Abs(transform.position.y - other.transform.position.y) > 1)
-                || (Mathf.Approximately(transform.position.y, other.transform.position.y) && Mathf.Abs(transform.position.x - other.transform.position.x) <= 8 && Mathf.Abs(transform.position.x - other.transform.position.x) > 1);
-            if (IsalignedWith)
+            AttackTimer += Time.deltaTime;
+            if (AttackTimer >= AttackCooldown)
             {
-                // 使用Physics2D.Raycast检测塔之间的路径
-                Vector3 dir = (endPos - startPos).normalized;
-                RaycastHit2D hit = Physics2D.Raycast(startPos + dir * 0.6f, dir, Vector3.Distance(startPos, endPos), layer);
-
-                // 如果射线检测到的物体不是目标塔，说明路径被其他物体阻挡
-                if (hit.collider != null && hit.collider.gameObject != other.gameObject)
-                {
-                    //Debug.Log("hasTower");
-                    return false;  // 路径有障碍物
-                }
-                return true;  // 路径畅通
+                canAttack = true;
+                AttackTimer = 0;
             }
         }
-        return false;
+
+        if (target == null && monsters.Count > 0)
+        {
+            target = monsters.Dequeue();
+        }
+        if (target != null /*&&target.IsActive怪物活着*/)
+        {
+            if (canAttack)
+            {
+                Shoot();
+                canAttack = false;
+
+                //Tower1Animator.SetTrigger("Attack");
+            }
+        }
     }
 
-    /*public void SetElectricPathActive(bool isActive) 
+    private void Shoot()
     {
-        if (electricPaths != null)
+        //Projectile projectile = /*GameManager.Instance.Pool.GetObject(projectileType).没写*/GetComponent<Projectile>();
+        GameObject projectile = Instantiate(this.projectilePrefab, transform.position, Quaternion.identity);
+        projectile.transform.position = transform.position;
+
+        projectile.GetComponent<T5Projectile>().Initialize(this);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("enemy"))
         {
-            Debug.Log($"Electric path collider enabled: {isActive}");
-            
-            foreach(GameObject collider in electricPaths)
-            {
-                collider.enabled = isActive;
-            }
-            
+            monsters.Enqueue(other.gameObject);
         }
-    }*/
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("enemy"))
+        {
+            if (target != null && other.gameObject != target.gameObject)
+            {
+                Queue<GameObject> tempQueue = new Queue<GameObject>();
+                while (monsters.Count > 0)
+                {
+                    GameObject monster0 = monsters.Dequeue();
+                    if (monster0.gameObject != other.gameObject)
+                    {
+                        tempQueue.Enqueue(monster0);
+                    }
+                }
+                monsters.Clear();
+                while (tempQueue.Count > 0)
+                {
+                    monsters.Enqueue(tempQueue.Dequeue());
+                }
+            }
+            else
+                target = null;
+        }
+    }
 
     public void Strengthen(float per)
     {

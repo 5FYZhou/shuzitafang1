@@ -10,3 +10,9 @@ public interface enemy
     void generate(int x, int y, int[,] new_waypint);
     void Start();
 }
+
+public interface IStrengthenTowerAttackPower
+{
+    void Strengthen(float per);
+    void Reduce(float per);
+}
