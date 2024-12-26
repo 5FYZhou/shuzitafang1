@@ -174,10 +174,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectlayer:
     serializedVersion: 2
-    m_Bits: 2816
+    m_Bits: 11008
   towerLayer:
     serializedVersion: 2
-    m_Bits: 6656
+    m_Bits: 14848
 --- !u!114 &8810850396745588472
 MonoBehaviour:
   m_ObjectHideFlags: 0

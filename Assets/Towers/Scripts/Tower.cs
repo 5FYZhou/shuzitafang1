@@ -18,6 +18,10 @@ public class Tower : MonoBehaviour
 
     public bool CanMoveToDir(Vector2 dir)
     {
+        if(this.gameObject.layer == 13)
+        {
+            return false;
+        }
         RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dir * 0.6f, dir, 0.5f, detectlayer);
         if (!hit)
         {
@@ -47,7 +51,16 @@ public class Tower : MonoBehaviour
             float health = healthBar.ReduceHealthBar(damage);
             if (health <= 0)
             {
-                Destroy(gameObject);
+                if (this.gameObject.layer != 13)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    Debug.Log("HomeBase is destroyed");
+                    GetComponent<SpriteRenderer>().color = Color.gray;
+                    GetComponent<BoxCollider2D>().enabled = false;
+                }
             }
         }
     }
@@ -88,12 +101,12 @@ public class Tower : MonoBehaviour
 
         if (hit.collider != null)
         {
-            //Debug.Log(hit.collider.name);
-            //if (hit.collider.gameObject.CompareTag("tower")&&hit.collider.gameObject==this.gameObject)
+            Tower tower = hit.collider.GetComponent<Tower>();
+            if (tower != null)
             {
-                hit.collider.GetComponent<Tower>().ShowRange();
-                hit.collider.GetComponent<Tower>().ShowHealthBar();
-                hit.collider.GetComponent<Tower>().ShowButton();
+                tower.ShowRange();
+                tower.ShowHealthBar();
+                tower.ShowButton();
             }
         }
     }
