@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class CurrencyManager : MonoBehaviour
 {
-    private int currency;
+    private float currency;
 
     [SerializeField]
     private TMP_Text currencyTxt;
 
-    public int Currency 
+    public float Currency 
     { 
         get => currency; 
         set 

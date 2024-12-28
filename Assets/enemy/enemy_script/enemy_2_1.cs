@@ -9,13 +9,14 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
     private int road, wall;
     private float attack_interval_counter;
     private Tower TowerScript;
+    private enemy_controller enemy_controller_script;
     private Queue<Collider2D> triggerQueue = new();
 
     public float error_range, speed, DPH, l_of_side;
     public int map_height, map_width, point_counter;
-    public int[] original_point, birth_point;//这是实际的像素点位，不是整除后的;
+    public int[] birth_point;//这是实际的像素点位，不是整除后的;
     public int[,] map, waypoint;//要跟实际的上下颠倒一下
-    public float[] attack_interval, fission_range, HP;//HP:{now,all}
+    public float[] attack_interval, fission_range, HP, original_point;//HP:{now,all}
     public bool move,death;
     public Animator enemy_2_1_animation;
 
@@ -26,10 +27,11 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
     // Start is called before the first frame update
     public void Start()
     {
+        enemy_controller_script = GetComponent<enemy_controller>();
         enemy_2_1_animation = GetComponent<Animator>();
 
         //birth_point = new int[] { 0, 3 };
-        original_point = new int[] { -5, 0 };//坐标原点，实际的像素点位
+        original_point = enemy_controller_script.original_point;//坐标原点，实际的像素点位
 
         waypoint = new int[1, 2];
 
@@ -38,35 +40,16 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
 
         point_counter = 0;
 
-        speed = 2*4f;
+        speed = enemy_controller_script.speed* 2f;
 
-        error_range = 0.3f;
+        error_range = enemy_controller_script.error_range;
 
         move = true;
         death = false;
-        l_of_side = 2;
+        l_of_side = enemy_controller_script.l_of_side;
         road = 8;
         wall = 0;
-        map = new int[,] { { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-                           { 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 8, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
-                           { 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 8, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
-                           { 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 8, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
-                           { 2, 2, 2, 2, 6, 6, 2, 2, 2, 2, 8, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7 },
-                           { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7 } };
+        map = new int[,] { { 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0 }, { 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 2, 2, 8, 2, 2, 2, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8 } };
         map_height = map.GetLength(0);
         map_width = map.GetLength(1);
 
@@ -210,6 +193,7 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
     {
         transform.position = new Vector3(x * l_of_side + original_point[0], y * l_of_side + original_point[1], 0f);
         waypoint = deep_copy_two_d(new_waypint);
+        point_counter = 0;
         Start();
     }
 

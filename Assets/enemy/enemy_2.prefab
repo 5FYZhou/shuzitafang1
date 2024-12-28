@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 8769431012228451750}
   - component: {fileID: 3816907265703544249}
   - component: {fileID: -1110737875192014053}
+  - component: {fileID: 6311748154078597229}
   m_Layer: 0
   m_Name: enemy_2
   m_TagString: enemy
@@ -208,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 6894355805069448146}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.471322, y: 5.364301, z: 0}
+  m_LocalPosition: {x: 30.975075, y: 19.659998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -255,7 +256,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1996450838, guid: 6f7999bf5e9449c4cad6f3e1eae36168, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -286,11 +287,11 @@ MonoBehaviour:
   map_height: 5
   map_width: 5
   point_counter: 0
-  original_point: 00000000fbffffff
   birth_point: 0000000003000000
   attack_interval: []
   fission_range: []
   HP: []
+  original_point: []
   enemy_2_1: {fileID: 1657136046618629000, guid: 4355ca2c06f4a28459229ba4a36f9876, type: 3}
   move: 0
   death: 0
@@ -378,6 +379,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6311748154078597229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6894355805069448146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 708ef07dbaa2d9e4ca0daaf545ca85f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.5
+  error_range: 3.3
+  l_of_side: 0.18
+  original_point:
+  - 28
+  - 17
 --- !u!1 &9090849920639876327
 GameObject:
   m_ObjectHideFlags: 0

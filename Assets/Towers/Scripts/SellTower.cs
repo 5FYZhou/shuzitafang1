@@ -66,6 +66,8 @@ public class SellTower : MonoBehaviour
     public void Sell()
     {
         Debug.Log("Sell"+sellPrice);
+        GameObject currency = GameObject.Find("CurrencyCanvas");
+        currency.GetComponent<CurrencyManager>().Currency += sellPrice;
         parent.DestroyTower();
     }
 }

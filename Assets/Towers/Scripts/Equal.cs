@@ -81,10 +81,11 @@ public class Equal : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             Vector3 dir = Direction(i);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dir * 0.6f, dir, 1f, Walllayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dir * 0.6f, dir, 1.5f, Walllayer);
             if (hit)
             {
                 int symbol = JudgeSymbol(hit.collider);
+                //Debug.Log(hit.collider.name);
                 if (symbol >= 0)
                 {
                     SymbolsInACertainDirection[i] = symbol;
@@ -116,7 +117,7 @@ public class Equal : MonoBehaviour
 
     private bool CanProduceTower(Vector3 dir)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 0.1f, towerlayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 1f, towerlayer);
         if (hit)
         {
             //Debug.Log("CanHit");
@@ -127,7 +128,7 @@ public class Equal : MonoBehaviour
 
     private GameObject HasTowerM(Vector3 dir)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 0.1f, towerlayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 1f, towerlayer);
         if (hit)
         {
             if (hit.collider.CompareTag("TowerM"))
@@ -159,8 +160,11 @@ public class Equal : MonoBehaviour
                 //Debug.Log(towerM);
                 RaycastHit2D hitA = Physics2D.Raycast(transform.position + dir * 2 + dir * 0.6f, dir, 0.5f, towerlayer);
                 RaycastHit2D hitB = Physics2D.Raycast(transform.position + dir * 2 + dir * -0.6f, dir * -1, 0.5f, towerlayer);
-                
-                
+                /*
+                bool a = hitA.collider != null;
+                bool b = hitB.collider != null;
+                Debug.Log($"{ a}+{ b}");
+                */
                 if (hitA && hitB && (CanProduceTower(-dir)||towerM!=null))//ÓÐAB
                 {
                     //Debug.Log("atrue");
