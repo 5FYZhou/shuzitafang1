@@ -7,7 +7,7 @@ public interface IHealthAccessor
 public interface enemy
 {
     void attack(float DPH);
-    void generate(int x, int y, int[,] new_waypint);
+    void generate(int x, int y, int[,] new_waypint,enemy_generator script);
     void Start();
 }
 

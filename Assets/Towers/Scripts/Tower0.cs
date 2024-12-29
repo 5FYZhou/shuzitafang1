@@ -44,6 +44,7 @@ public class Tower0 : MonoBehaviour
     private void Awake()
     {
         CreatChild();
+        GetComponent<Tower>().Price = purchasePrice;
     }
     private void Start()
     {

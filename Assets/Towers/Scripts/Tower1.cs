@@ -76,6 +76,7 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
     private void Awake()
     {
         CreatChild();
+        GetComponent<Tower>().Price = purchasePrice;
     }
 
     void Start()

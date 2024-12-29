@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CurrencyManager : MonoBehaviour
 {
+    [SerializeField]
     private float currency;
 
     [SerializeField]
@@ -21,9 +22,17 @@ public class CurrencyManager : MonoBehaviour
         } 
     }
 
-    private void Start()
+    private void Awake()
     {
         //currencyTxt = GetComponent<Text>();
-        Currency = 50;
+        Currency = currency;
+    }
+
+    private void Update()
+    {
+        if (Currency > 600)
+        {
+            Currency = 600;
+        }
     }
 }

@@ -34,7 +34,8 @@ public class Projectile : MonoBehaviour
         }
         if (target != null/*&&target.IsActive¹ÖÎï»î×Å*/)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, Time.deltaTime * parent.ProjectileSpeed);
+            Vector3 end = target.GetComponent<CapsuleCollider2D>().bounds.center;
+            transform.position = Vector2.MoveTowards(transform.position, end, Time.deltaTime * parent.ProjectileSpeed);
            // Vector2 dir = target.transform.position - transform.position;
             Vector2 dir = transform.position - target.transform.position;
             float angle = - Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;

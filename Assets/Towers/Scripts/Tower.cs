@@ -7,6 +7,10 @@ public class Tower : MonoBehaviour
     [SerializeField]
     private LayerMask towerLayer;
 
+    private float price;
+
+    public float Price { get => price; set => price = value; }
+
     private void Start()
     {
         //range = GetComponentInChildren<TowerAttackRange>();
@@ -90,7 +94,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    /*private void OnMouseDown()
     {
         //if (Input.GetMouseButtonDown(0))
         // 获取鼠标在屏幕上的位置
@@ -101,6 +105,7 @@ public class Tower : MonoBehaviour
 
         if (hit.collider != null)
         {
+            //Debug.Log("tower");
             Tower tower = hit.collider.GetComponent<Tower>();
             if (tower != null)
             {
@@ -109,7 +114,7 @@ public class Tower : MonoBehaviour
                 tower.ShowButton();
             }
         }
-    }
+    }*/
 
     public void DestroyTower()
     {

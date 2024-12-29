@@ -63,6 +63,7 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
     private void Awake()
     {
         CreatChild();
+        GetComponent<Tower>().Price = purchasePrice;
     }
 
     void Start()
@@ -79,6 +80,7 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
         }
 
         animator = GetComponent<Animator>();
+
     }
     
     private void GiveAttackRange()

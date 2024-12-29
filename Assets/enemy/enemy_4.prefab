@@ -167,7 +167,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -1459457950, guid: 9314eb17bd769b94fb9e33b056ef4667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -199,7 +199,6 @@ MonoBehaviour:
   map_width: 5
   birth_point: 0000000003000000
   attack_interval: []
-  fission_range: []
   HP: []
   skill_interval: []
   original_point: []
@@ -304,11 +303,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
-  error_range: 3.3
-  l_of_side: 0.18
+  error_range: 0.3
+  l_of_side: 1
   original_point:
-  - 28
-  - 17
+  - -7.999997
+  - -4.999995
 --- !u!1 &7588885461405797007
 GameObject:
   m_ObjectHideFlags: 0

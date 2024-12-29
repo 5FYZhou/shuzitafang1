@@ -134,7 +134,7 @@ Transform:
   m_GameObject: {fileID: 2531878364817965637}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.47, y: 19.97, z: 0}
+  m_LocalPosition: {x: 25.438793, y: 19.580925, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -181,7 +181,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: -1657943942, guid: ea45d047b76529b4cbb9457733794492, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -205,16 +205,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0eaf1df6d530574495d27faa001a924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  error_range: 0.9
-  speed: 2
-  DPH: 1
-  l_of_side: 5
-  map_height: 5
-  map_width: 5
+  error_range: 0
+  speed: 0
+  DPH: 0
+  l_of_side: 0
+  map_height: 0
+  map_width: 0
   point_counter: 0
-  birth_point: 0000000003000000
+  birth_point: 
   attack_interval: []
-  fission_range: []
   HP: []
   original_point: []
   move: 0
@@ -249,10 +248,10 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: -0.45}
+  m_Offset: {x: -0.1, y: 0}
   m_Size: {x: 0.5, y: 0.6}
   m_Direction: 0
 --- !u!50 &6321034052600726289
@@ -316,11 +315,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
-  error_range: 3.3
-  l_of_side: 0.18
+  error_range: 0.3
+  l_of_side: 1
   original_point:
-  - 28
-  - 17
+  - -7.999997
+  - -4.999995
 --- !u!1 &2621196454572468810
 GameObject:
   m_ObjectHideFlags: 0

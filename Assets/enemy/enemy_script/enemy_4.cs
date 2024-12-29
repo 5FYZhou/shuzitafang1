@@ -10,14 +10,15 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     private int road, wall;
     private float attack_interval_counter;
     private Tower TowerScript;
-    private enemy_controller enemy_controller_script;
+    private enemy_argument enemy_argument_script;
+    private enemy_generator enemy_generator_script;
     private Queue<Collider2D> triggerQueue = new();
 
     public float error_range, speed, DPH, l_of_side;
     public int map_height, map_width;
     public int[] birth_point;//这是实际的像素点位，不是整除后的
     public int[,] map, waypoint;//要跟实际的上下颠倒一下
-    public float[] attack_interval, fission_range, HP,skill_interval, original_point;//HP:{now,all}
+    public float[] attack_interval, HP,skill_interval, original_point;//HP:{now,all}
     public GameObject enemy_2,enemy_1;
     public bool move,death;
     public Animator enemy_4_animation;
@@ -29,26 +30,19 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     // Start is called before the first frame update
     public void Start()
     {
-        enemy_controller_script = GetComponent<enemy_controller>();
+        enemy_argument_script = GetComponent<enemy_argument>();
         enemy_4_animation = GetComponent<Animator>();
 
-        birth_point = new int[] { 0, 1 };
-        original_point = enemy_controller_script.original_point;//坐标原点，实际的像素点位
+        //birth_point = new int[] { 0, 1 };
+        original_point = enemy_argument_script.original_point;//坐标原点，实际的像素点位
 
-        waypoint = new int[1, 2];
+        speed = enemy_argument_script.speed*1f;
 
-        waypoint[0, 0] = 20;
-        waypoint[0, 1] = 18;
-
-        point_counter = 0;
-
-        speed = enemy_controller_script.speed*1f;
-
-        error_range = enemy_controller_script.error_range;
+        error_range = enemy_argument_script.error_range;
 
         move = true;
         death = false;
-        l_of_side = enemy_controller_script.l_of_side;
+        l_of_side = enemy_argument_script.l_of_side;
         road = 8;
         wall = 0;
         map = new int[,] { { 8, 8, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0 }, { 8, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 2, 2, 8, 2, 2, 2, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8 } };
@@ -68,12 +62,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
         is_attack = false;
 
         //无需改动
-        transform.position = new Vector3(birth_point[0] * l_of_side + original_point[0], birth_point[1] * l_of_side + original_point[1], 0f);
-        waypoint = search_road(map);
-        if (waypoint == null)
-        {
-            move = false;
-        }
+        //transform.position = new Vector3(birth_point[0] * l_of_side + original_point[0] - l_of_side / 2, birth_point[1] * l_of_side + original_point[1] - l_of_side / 2, 0f);
 
         enemy_4_animation.SetBool("move", move);
         enemy_4_animation.SetBool("is_attack", is_attack);
@@ -122,8 +111,8 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
 
         if (move && death == false)
         {
-            float actual_x = (float)(waypoint[point_counter, 0] * l_of_side + original_point[0]);
-            float actual_y = (float)(waypoint[point_counter, 1] * l_of_side + original_point[1]);
+            float actual_x = (float)(waypoint[point_counter, 0] * l_of_side + original_point[0] - l_of_side / 2);
+            float actual_y = (float)(waypoint[point_counter, 1] * l_of_side + original_point[1] - l_of_side / 2);
 
             int x_judge = range_judge(actual_x, transform.position.x, error_range * l_of_side);
             int y_judge = range_judge(actual_y, transform.position.y, error_range * l_of_side);
@@ -226,12 +215,18 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
         }
     }
 
-    public void generate(int x, int y, int[,] new_waypint)
+    public void generate(int x, int y, int[,] new_waypint, enemy_generator script)
     {
-        transform.position = new Vector3(x * l_of_side + original_point[0], y * l_of_side + original_point[1], 0f);
+        Start();
+        enemy_generator_script = script;
+        transform.position = new Vector3(x * l_of_side + original_point[0] - l_of_side / 2, y * l_of_side + original_point[1] - l_of_side / 2, 0f);
         waypoint = deep_copy_two_d(new_waypint);
         point_counter = 0;
-        Start();
+        waypoint = search_road(map);
+        if (waypoint == null)
+        {
+            move = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -261,6 +256,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
 
     void fission(int x,int y)
     {
+        enemy_generator_script.enemy_kill_counter[1] += 1;
         Vector3 v = new Vector3(x * l_of_side + original_point[0], y * l_of_side + original_point[1], 0f);
 
         if (Random.Range(0, 2) == 1)
@@ -295,8 +291,8 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     }
     int[,] search_road(int[,] map)
     {
-        int self_x = (int)((transform.position.x + l_of_side / 2 - original_point[0]) / l_of_side);
-        int self_y = (int)((transform.position.y + l_of_side / 2 - original_point[1]) / l_of_side);
+        int self_x = (int)((transform.position.x - original_point[0]) / l_of_side + 1);
+        int self_y = (int)((transform.position.y - original_point[1]) / l_of_side + 1);
 
         int[,] output = BFS(map, new int[] { waypoint[point_counter, 0], waypoint[point_counter, 1] }, self_x, self_y);
         if (output != null)
@@ -465,13 +461,16 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     }
     public void attack(float ATK)
     {
-        HP[0] = Mathf.Max(HP[0] - ATK,0);
-        if (HP[0] <= 0)
+        if (HP[0] > 0)
         {
-            move = false;
-            death = true;
-            enemy_4_animation.SetBool("death", death);
-            StartCoroutine(DeadDelay(1.5f));
+            HP[0] = Mathf.Max(HP[0] - ATK, 0);
+            if (HP[0] <= 0)
+            {
+                move = false;
+                death = true;
+                enemy_4_animation.SetBool("death", death);
+                StartCoroutine(DeadDelay(1.5f));
+            }
         }
     }
 
@@ -479,6 +478,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     {
         yield return new WaitForSeconds(seconds);
         Destroy(gameObject);//dead
+        enemy_generator_script.enemy_kill_counter[0] += 1;
     }
 
     Queue<Collider2D> queue_pop(Queue<Collider2D> queue, Collider2D target)
