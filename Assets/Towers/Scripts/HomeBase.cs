@@ -36,14 +36,15 @@ public class HomeBase : MonoBehaviour
         Transform HealthBar = transform.Find("HealthBarCanvas");
         if (!HealthBar)
         {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 3f, 0f);
+            Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.8f, 0f);
             bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
             bar.transform.SetParent(this.transform);
             GiveHealthVolumn();
-
+            /*
             Vector2 scale = bar.transform.localScale;
             scale = scale * 2f;
             bar.transform.localScale = scale;
+            */
         }
     }
 

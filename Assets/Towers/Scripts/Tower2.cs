@@ -114,9 +114,12 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
         Transform HealthBar = transform.Find("HealthBarCanvas");
         if (!HealthBar)
         {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1.5f, 0f);
+            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
             bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
             bar.transform.SetParent(this.transform);
+            Vector2 scale = bar.transform.localScale;
+            scale = scale * 0.8f;
+            bar.transform.localScale = scale;
             GiveHealthVolumn();
         }
         Transform AttackRange = transform.Find("TowerAttakRange");
@@ -135,9 +138,12 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
             Transform SellButton = transform.Find("SellButtonCanvas");
             if (!SellButton)
             {
-                Vector3 position = new Vector3(transform.position.x, transform.position.y - 1f, 0f);
+                Vector3 position = new Vector3(transform.position.x, transform.position.y - 0.7f, 0f);
                 button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
                 button.transform.SetParent(this.transform);
+                Vector2 scale = button.transform.localScale;
+                scale = scale * 0.8f;
+                button.transform.localScale = scale;
                 GiveSellButton();
             }
         }

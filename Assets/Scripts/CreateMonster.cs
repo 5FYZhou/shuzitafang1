@@ -15,9 +15,9 @@ public class CreateMonster : MonoBehaviour
     }
     void SpawnMonster()
     {
-        int monsterIndex = Random.Range(0, monsterPrefabs.Length);
-        GameObject monster = Instantiate(monsterPrefabs[monsterIndex], spawnPoint.transform.position, Quaternion.identity);
-        monster.transform.SetParent(spawnPoint.transform);
+        GameObject enemyInstance = Instantiate(monsterPrefabs[0]);
+        enemy script__ = enemyInstance.GetComponent<enemy>();
+        script__.generate(0, 1, new int[,] { { 0, 0 }, { 6, 0 }, { 6, 9 }, { 11, 9 } });
     }
     // Update is called once per frame
     void Update()
