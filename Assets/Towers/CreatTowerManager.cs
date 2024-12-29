@@ -6,23 +6,30 @@ using UnityEngine.EventSystems;
 public class CreatTowerManager : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask WallLayer;
+    private LayerMask CannotPlaceLayer;
     [SerializeField]
     private LayerMask towerLayer;
 
     private CurrencyManager currencyManager;
+    private Hover hover;
 
     private Vector2 mousePosition;
     private TowerButton clickedBtn;
-    private bool MouseHaveATower;
+
 
     private void Start()
     {
         currencyManager = GameObject.Find("CurrencyCanvas").GetComponent<CurrencyManager>();
+        hover = GameObject.Find("Hover").GetComponent<Hover>();
         //if (currencyManager != null)
         //{
-            //Debug.Log(currencyManager);
+        //Debug.Log(currencyManager);
         //}
+    }
+
+    private void Update()
+    {
+        HandleEscape();
     }
 
     private void OnMouseDown()
@@ -33,17 +40,14 @@ public class CreatTowerManager : MonoBehaviour
             mousePosition = StandardizePosition(mousePosition);
             //Debug.Log(mousePosition);
 
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, WallLayer);
+            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, CannotPlaceLayer);
 
             if (hit.collider == null && clickedBtn != null && CanPerchase(clickedBtn))
             {
-
-                //Debug.Log(clickedBtn.PerchasePrice);
                 PlaceTower();
             }
-
+            //ÏÔÊ¾Ëþ×´Ì¬
             RaycastHit2D hitT = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, towerLayer);
-
             if (hitT.collider != null)
             {
                 //Debug.Log("tower");
@@ -71,16 +75,16 @@ public class CreatTowerManager : MonoBehaviour
     {
         //Debug.Log("clicked");
         this.clickedBtn = towerBtn;
+
+        hover.Activate(clickedBtn.Sprite);
     }
 
     private void PlaceTower()
     {
-        
-        {
-            currencyManager.Currency -= clickedBtn.PerchasePrice;
-            Instantiate(clickedBtn.ATowerPre, mousePosition, Quaternion.identity);
-            clickedBtn = null;
-        }
+        currencyManager.Currency -= clickedBtn.PerchasePrice;
+        Instantiate(clickedBtn.ATowerPre, mousePosition, Quaternion.identity);
+        clickedBtn = null;
+        hover.Deactivate();
     }
 
     private bool CanPerchase(TowerButton btn)
@@ -93,4 +97,12 @@ public class CreatTowerManager : MonoBehaviour
         return false;
     }
 
+    private void HandleEscape()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            hover.Deactivate();
+            clickedBtn = null;
+        }
+    }
 }

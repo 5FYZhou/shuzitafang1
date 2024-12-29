@@ -108,10 +108,10 @@ public class Equal : MonoBehaviour
     private int NewTowerDigit(int A,int B,int symbol)
     {
         if (symbol == 0) return (A + B) % 10;
-        else if (symbol == 1) return (A - B) % 10;
+        else if (symbol == 1 && A >= B) return (A - B) % 10;
         else if (symbol == 2) return (A * B) % 10;
-        else if (symbol == 3) return (A / B) % 10;
-        else if (symbol == 4) return (A % B) % 10;
+        else if (symbol == 3 && B != 0) return (A / B) % 10;
+        else if (symbol == 4 && B != 0) return (A % B) % 10;
         else return -1;
     }
 

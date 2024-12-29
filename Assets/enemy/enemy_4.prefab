@@ -120,7 +120,7 @@ Transform:
   m_GameObject: {fileID: 6268310073057400501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.36108, y: 19.372034, z: 0}
+  m_LocalPosition: {x: 33.677364, y: 18.997, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -167,7 +167,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1459457950, guid: 9314eb17bd769b94fb9e33b056ef4667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -239,8 +239,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05, y: -0.3}
-  m_Size: {x: 0.4, y: 0.9}
+  m_Offset: {x: -0.05, y: -0.5}
+  m_Size: {x: 0.4, y: 0.5}
   m_Direction: 0
 --- !u!50 &7521818916629875638
 Rigidbody2D:
