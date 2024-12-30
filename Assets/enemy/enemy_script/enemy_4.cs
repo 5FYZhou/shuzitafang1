@@ -27,6 +27,11 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     {
         get { return HP; }
     }
+    public bool Death
+    {
+        get { return death; }
+        set { death = value; }
+    }
     // Start is called before the first frame update
     public void Start()
     {

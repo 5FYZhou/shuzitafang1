@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (target != null/*&&target.IsActive¹ÖÎï»î×Å*/)
+        if (target != null && !target.GetComponent<enemy>().Death)
         {
             Vector3 end = target.GetComponent<CapsuleCollider2D>().bounds.center;
             transform.position = Vector2.MoveTowards(transform.position, end, Time.deltaTime * parent.ProjectileSpeed);

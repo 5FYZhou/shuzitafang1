@@ -174,7 +174,7 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
         {
             target = monsters.Dequeue();
         }
-        if (target != null /*&&target.IsActive怪物活着*/)
+        if (target != null && !target.GetComponent<enemy>().Death/*怪物活着*/)
         {
             if (canAttack)
             {

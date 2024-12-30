@@ -26,6 +26,11 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
     {
         get { return HP; }
     }
+    public bool Death
+    {
+        get { return death; }
+        set { death = value; }
+    }
     // Start is called before the first frame update
     public void Start()
     {
@@ -183,6 +188,7 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
 
     void fission()
     {
+        enemy_generator_script.enemy_kill_counter[1] += 1;
         Vector3 v = new Vector3(transform.position.x + l_of_side * (Random.Range(0, 2) == 0 ? -1 : 1) * Random.Range(fission_range[0], fission_range[1]),
                 transform.position.y + l_of_side * (Random.Range(0, 2) == 0 ? -1 : 1) * Random.Range(fission_range[0], fission_range[1]), 0f);
         GameObject enemyInstance = Instantiate(enemy_2_1);

@@ -19,8 +19,13 @@ public class enemy_generator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int i;
         gen_list = new float[,] { { 0, 1, 1 }, { 10, 1, 1 }, { 20, 1, 2 }, { 30, 1, 2 }, { 40, 1, 3 }, { 60, 1, 2 }, { 70, 1, 2 }, { 80, 1, 3 }, { 90, 1, 4 }, { 100, 1, 5 }, { 120, 2, 2 }, { 130, 2, 2 }, { 140, 2, 3 }, { 180, 1, 8 }, { 190, 2, 4 }, { 240, 2, 2 }, { 250, 1, 2 }, { 260, 3, 1 } };
-        enemy_kill_counter[1] = gen_list.GetLength(0);
+        enemy_kill_counter[1] = 0;
+        for (i = 0; i < gen_list.GetLength(0); i++)
+        {
+            enemy_kill_counter[1] += (int)gen_list[i, 2];
+        }
         StartCoroutine(SpawnEnemiesCoroutine());
     }
 
