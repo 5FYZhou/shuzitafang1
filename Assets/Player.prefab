@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 314209796315108599}
   - component: {fileID: 6764454245451701033}
   - component: {fileID: -581249201648751439}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.86565, y: 0.86565, z: 0.86565}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -192,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 8695205185914096487}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5014107ccf191f41b7d8752049fc688, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

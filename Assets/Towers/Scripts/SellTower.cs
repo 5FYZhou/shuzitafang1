@@ -69,5 +69,7 @@ public class SellTower : MonoBehaviour
         GameObject currency = GameObject.Find("CurrencyCanvas");
         currency.GetComponent<CurrencyManager>().Currency += sellPrice;
         parent.DestroyTower();
+
+        GameObject.Find("Grid").GetComponentInChildren<CreatTowerManager>().TowerNumber -= 1;
     }
 }

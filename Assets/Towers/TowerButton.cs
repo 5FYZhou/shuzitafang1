@@ -23,6 +23,7 @@ public class TowerButton : MonoBehaviour
     private Button btn;
 
     private CurrencyManager currencyManager;
+    private CreatTowerManager creatTowerManager;
 
     private void Start()
     {
@@ -30,12 +31,13 @@ public class TowerButton : MonoBehaviour
         PriceTxt = GetComponentInChildren<TMP_Text>();
         PriceTxt.text = perchasePrice.ToString();
         currencyManager = GameObject.Find("CurrencyCanvas").GetComponent<CurrencyManager>();
+        creatTowerManager = GameObject.Find("Grid").GetComponentInChildren<CreatTowerManager>();
         btn = GetComponent<Button>();
     }
 
     private void Update()
     {
-        if (currencyManager.Currency < perchasePrice)
+        if (currencyManager.Currency < perchasePrice || creatTowerManager.TowerNumber >= creatTowerManager.MaxTowerNumber)
         {
             Grey();
         }

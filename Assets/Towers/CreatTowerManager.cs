@@ -15,7 +15,19 @@ public class CreatTowerManager : MonoBehaviour
 
     private Vector2 mousePosition;
     private TowerButton clickedBtn;
-
+    //场上塔的数量上限
+    [SerializeField]
+    private int maxTowerNumber;
+    public int MaxTowerNumber { get => maxTowerNumber; set => maxTowerNumber = value; }
+    private int towerNumber = 0;
+    public int TowerNumber { get => towerNumber; set => towerNumber = value; }
+    private bool BtnGrey;
+    //建造塔的数量上限
+    [SerializeField]
+    private int MaxCreatedTowerNumber;
+    private int CreatedTowerNumber = 0;
+    private bool towersNumHasReachedMax;
+    public bool TowersNumHasReachedMax { get => towersNumHasReachedMax; set => towersNumHasReachedMax = value; }
 
     private void Start()
     {
@@ -30,6 +42,7 @@ public class CreatTowerManager : MonoBehaviour
     private void Update()
     {
         HandleEscape();
+        CheckTowerNum();
     }
 
     private void OnMouseDown()
@@ -85,6 +98,9 @@ public class CreatTowerManager : MonoBehaviour
         Instantiate(clickedBtn.ATowerPre, mousePosition, Quaternion.identity);
         clickedBtn = null;
         hover.Deactivate();
+
+        TowerNumber += 1;
+        CreatedTowerNumber += 1;
     }
 
     private bool CanPerchase(TowerButton btn)
@@ -104,5 +120,35 @@ public class CreatTowerManager : MonoBehaviour
             hover.Deactivate();
             clickedBtn = null;
         }
+    }
+
+    private void CheckTowerNum()
+    {
+        //Debug.Log(TowerNumber);
+        if (CreatedTowerNumber >= MaxCreatedTowerNumber && !TowersNumHasReachedMax)
+        {
+            TowersNumHasReachedMax = true;
+            Debug.Log("建造塔的数量达到10！");
+        }
+        /*
+        if (TowerNumber >= MaxTowerNumber && !BtnGrey)
+        {
+            Debug.Log("塔的数量达到上限15！");
+            TowerButton[] towerBts = GameObject.FindObjectsOfType<TowerButton>();
+            foreach( TowerButton btn in towerBts)
+            {
+                btn.Grey();
+            }
+            BtnGrey = true;
+        }
+        else if(TowerNumber < MaxTowerNumber && BtnGrey)
+        {
+            TowerButton[] towerBts = GameObject.FindObjectsOfType<TowerButton>();
+            foreach (TowerButton btn in towerBts)
+            {
+                btn.White();
+            }
+            BtnGrey = false;
+        }*/
     }
 }

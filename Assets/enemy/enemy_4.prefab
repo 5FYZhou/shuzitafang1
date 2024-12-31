@@ -167,7 +167,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1459457950, guid: 9314eb17bd769b94fb9e33b056ef4667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -207,6 +207,7 @@ MonoBehaviour:
   move: 0
   death: 0
   enemy_4_animation: {fileID: 0}
+  enemy_generator_script: {fileID: 0}
 --- !u!70 &5071714801268446276
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

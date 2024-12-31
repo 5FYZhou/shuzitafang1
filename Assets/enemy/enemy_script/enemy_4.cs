@@ -11,7 +11,6 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     private float attack_interval_counter;
     private Tower TowerScript;
     private enemy_argument enemy_argument_script;
-    private enemy_generator enemy_generator_script;
     private Queue<Collider2D> triggerQueue = new();
 
     public float error_range, speed, DPH, l_of_side;
@@ -22,6 +21,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     public GameObject enemy_2,enemy_1;
     public bool move,death;
     public Animator enemy_4_animation;
+    public enemy_generator enemy_generator_script;
 
     float[] IHealthAccessor.HP
     {
@@ -81,7 +81,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
         enemy_4_animation.SetBool("is_attack", is_attack);
 
         skill_interval[1] += Time.deltaTime;
-        if (skill_interval[1] > skill_interval[0])
+        if (skill_interval[1] > skill_interval[0] && GameStateManager.currentGameState == GameState.Playing)
         {
             skill_interval[1] = 0;
 
@@ -114,7 +114,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
             }
         }
 
-        if (move && death == false)
+        if (move && death == false && GameStateManager.currentGameState == GameState.Playing)
         {
             float actual_x = (float)(waypoint[point_counter, 0] * l_of_side + original_point[0] - l_of_side / 2);
             float actual_y = (float)(waypoint[point_counter, 1] * l_of_side + original_point[1] - l_of_side / 2);
@@ -184,7 +184,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
             }
         }
 
-        if (is_attack && death == false)
+        if (is_attack && death == false && GameStateManager.currentGameState == GameState.Playing)
         {
             if (triggerQueue.Peek() == null && triggerQueue.Count - 1 > 0)
             {
@@ -268,6 +268,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
         {
             GameObject enemyInstance = Instantiate(enemy_1);
             enemy_1 script__ = enemyInstance.GetComponent<enemy_1>();
+            script__.enemy_generator_script = enemy_generator_script;
             script__.transform.position = v;
             script__.waypoint = deep_copy_two_d(waypoint);
             script__.point_counter = point_counter;
@@ -276,6 +277,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
         {
             GameObject enemyInstance = Instantiate(enemy_2);
             enemy_2 script__ = enemyInstance.GetComponent<enemy_2>();
+            script__.enemy_generator_script = enemy_generator_script;
             script__.transform.position = v;
             script__.waypoint = deep_copy_two_d(waypoint);
             script__.point_counter = point_counter;

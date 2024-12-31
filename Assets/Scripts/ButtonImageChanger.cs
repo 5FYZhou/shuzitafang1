@@ -10,10 +10,18 @@ public class ButtonImageChanger : MonoBehaviour
 
     public void OnButtonClick()
     {
-        if(GetComponent<Image>().sprite == clickedSprite)
+        if (GetComponent<Image>().sprite == clickedSprite)
+        {
             GetComponent<Image>().sprite = defaultSprite;
+            GameStateManager.currentGameState = GameState.Playing;
+            Time.timeScale = 1f;
+        }
         else
+        {
             GetComponent<Image>().sprite = clickedSprite;
+            GameStateManager.currentGameState = GameState.Paused;
+            Time.timeScale = 0;
+        }
     }
     private void Start()
     {

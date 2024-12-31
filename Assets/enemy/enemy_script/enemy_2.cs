@@ -10,7 +10,6 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
     private float attack_interval_counter;
     private Tower TowerScript;
     private enemy_argument enemy_argument_script;
-    private enemy_generator enemy_generator_script;
     private Queue<Collider2D> triggerQueue = new();
 
     public float error_range, speed, DPH, l_of_side;
@@ -21,6 +20,7 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
     public GameObject enemy_2_1;
     public bool move,death;
     public Animator enemy_2_animation;
+    public enemy_generator enemy_generator_script;
 
     float[] IHealthAccessor.HP
     {
@@ -80,7 +80,7 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
         enemy_2_animation.SetBool("move", move);
         enemy_2_animation.SetBool("is_attack", is_attack);
 
-        if (move && death == false)
+        if (move && death == false && GameStateManager.currentGameState == GameState.Playing)
         {
             float actual_x = (float)(waypoint[point_counter, 0] * l_of_side + original_point[0] - l_of_side / 2);
             float actual_y = (float)(waypoint[point_counter, 1] * l_of_side + original_point[1] - l_of_side / 2);
@@ -150,7 +150,7 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
             }
         }
 
-        if (is_attack && death == false)
+        if (is_attack && death == false && GameStateManager.currentGameState == GameState.Playing)
         {
             if (triggerQueue.Peek() == null && triggerQueue.Count - 1 > 0)
             {
@@ -193,6 +193,7 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
                 transform.position.y + l_of_side * (Random.Range(0, 2) == 0 ? -1 : 1) * Random.Range(fission_range[0], fission_range[1]), 0f);
         GameObject enemyInstance = Instantiate(enemy_2_1);
         enemy_2_1 script__ = enemyInstance.GetComponent<enemy_2_1>();
+        script__.enemy_generator_script = enemy_generator_script;
         script__.transform.position = v;
         script__.waypoint = deep_copy_two_d(waypoint);
         script__.point_counter = point_counter;

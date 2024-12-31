@@ -7,10 +7,11 @@ public class enemy_generator : MonoBehaviour
     public GameObject[] enemy_list;
     public GameObject enemyInstance;
     public float[] time_counter = new float[] { 0, 0 };//{time,turn}
+    public float[] wave_num = new float[] { 0, 0, 60, 120, 180, 240 };//turn,each_time
     public int[] enemy_kill_counter = new int[] { 0, 0 };
-    private bool can_function = true;
+    public float[,] gen_list;
 
-    private float[,] gen_list;
+    private bool can_function = true;
     private enemy enemy_script;
 
     // 存储待生成敌人信息的列表
@@ -40,6 +41,10 @@ public class enemy_generator : MonoBehaviour
         if (GameStateManager.currentGameState == GameState.Playing)
         {
             time_counter[0] += Time.deltaTime;
+            if (wave_num[0]+1<wave_num.GetLength(0) && time_counter[0] >= wave_num[(int)wave_num[0]+1])
+            {
+                wave_num[0] += 1;
+            }
             while (time_counter[1] < gen_list.GetLength(0) && time_counter[0] >= gen_list[(int)time_counter[1], 0])
             {
                 int type = (int)gen_list[(int)time_counter[1], 1] - 1;
@@ -52,7 +57,7 @@ public class enemy_generator : MonoBehaviour
 
     IEnumerator SpawnEnemiesCoroutine()
     {
-        while (true)
+        while (GameStateManager.currentGameState == GameState.Playing)
         {
             if (enemiesToSpawn.Count > 0)
             {

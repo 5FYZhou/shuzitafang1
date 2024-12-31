@@ -10,7 +10,6 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
     private float attack_interval_counter;
     private Tower TowerScript;
     private enemy_argument enemy_argument_script;
-    private enemy_generator enemy_generator_script;
     private Queue<Collider2D> triggerQueue = new();
 
     public float error_range, speed, DPH, l_of_side;
@@ -20,6 +19,7 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
     public float[] attack_interval, fission_range, HP, original_point;//HP:{now,all}
     public bool move,death;
     public Animator enemy_2_1_animation;
+    public enemy_generator enemy_generator_script;
 
     float[] IHealthAccessor.HP
     {
@@ -77,7 +77,7 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
         enemy_2_1_animation.SetBool("move", move);
         enemy_2_1_animation.SetBool("is_attack", is_attack);
 
-        if (move && death == false)
+        if (move && death == false && GameStateManager.currentGameState == GameState.Playing)
         {
             float actual_x = (float)(waypoint[point_counter, 0] * l_of_side + original_point[0] - l_of_side / 2);
             float actual_y = (float)(waypoint[point_counter, 1] * l_of_side + original_point[1] - l_of_side / 2);
@@ -147,7 +147,7 @@ public class enemy_2_1 : MonoBehaviour, IHealthAccessor, enemy
             }
         }
 
-        if (is_attack && death == false)
+        if (is_attack && death == false && GameStateManager.currentGameState == GameState.Playing)
         {
             if (triggerQueue.Peek() == null && triggerQueue.Count - 1 > 0)
             {
