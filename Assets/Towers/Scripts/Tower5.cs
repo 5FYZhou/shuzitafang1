@@ -42,9 +42,15 @@ public class Tower5 : MonoBehaviour,IStrengthenTowerAttackPower
     //¹¥»÷Á¦
     [SerializeField]
     private float AttackPower;
+    [SerializeField]
+    private float SplashAttackPower;
     public float Damage
     {
         get { return AttackPower; }
+    }
+    public float SplashDamage 
+    {
+        get { return SplashAttackPower; }
     }
 
     //ÑªÁ¿
@@ -122,9 +128,12 @@ public class Tower5 : MonoBehaviour,IStrengthenTowerAttackPower
         Transform HealthBar = transform.Find("HealthBarCanvas");
         if (!HealthBar)
         {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1.5f, 0f);
+            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
             bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
             bar.transform.SetParent(this.transform);
+            Vector2 scale = bar.transform.localScale;
+            scale = scale * 0.8f;
+            bar.transform.localScale = scale;
             GiveHealthVolumn();
         }
         Transform AttackRange = transform.Find("TowerAttakRange");
@@ -224,9 +233,11 @@ public class Tower5 : MonoBehaviour,IStrengthenTowerAttackPower
     public void Strengthen(float per)
     {
         AttackPower = AttackPower * (per + 1);
+        SplashAttackPower = SplashAttackPower * (per + 1);
     }
     public void Reduce(float per)
     {
         AttackPower = AttackPower / (per + 1);
+        SplashAttackPower = SplashAttackPower / (per + 1); 
     }
 }

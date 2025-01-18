@@ -199,6 +199,7 @@ MonoBehaviour:
   AttackCooldown: 2
   AttackRange: 5.5
   AttackPower: 20
+  SplashAttackPower: 10
   initialHealthVolume: 50
   purchasePrice: 200
   sellingPrice: 120
