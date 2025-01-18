@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5721920873774722139}
   - component: {fileID: 5626635509612573406}
   - component: {fileID: 4768808879384134786}
-  - component: {fileID: 4109455679916582231}
   - component: {fileID: 3930884899158328122}
   m_Layer: 9
   m_Name: Tower3
@@ -160,24 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4109455679916582231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 222648210861155341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectlayer:
-    serializedVersion: 2
-    m_Bits: 11008
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 14848
 --- !u!114 &3930884899158328122
 MonoBehaviour:
   m_ObjectHideFlags: 0

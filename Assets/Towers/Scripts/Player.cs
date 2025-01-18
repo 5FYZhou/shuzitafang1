@@ -10,19 +10,16 @@ public class Player : MonoBehaviour
 
     public bool HasTower;
     [SerializeField]
-    private List<GameObject> TowerPrefabs = new List<GameObject>();
+    private List<GameObject> TowerPrefabs = new();
     public GameObject NewTower = null;
     //private float Timer = 0;
     //private int I = -1;
     //private Equal EqualI;
 
-    private Renderer render;
-
     private Animator animator;
 
     private void Start()
     {
-        render = GetComponent<Renderer>();
         animator = GetComponent<Animator>();
     }
 
@@ -59,7 +56,7 @@ public class Player : MonoBehaviour
         //AddTowerCoolDown();
     }
 
-    bool CanMoveToDir(Vector2 dir)
+    private bool CanMoveToDir(Vector2 dir)
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dir * 0.5f, dir, 0.5f, detectlayer);
         if (!hit)
@@ -72,7 +69,7 @@ public class Player : MonoBehaviour
                 box.ShowRange();
                 box.ShowHealthBar();
                 //Debug.Log($"{hit.collider.name}show");
-                if (box.CanMoveToDir(dir))
+                if (box.TCanMoveToDir(dir))
                     return true;
                 else
                 {
@@ -163,7 +160,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+/*
     private void SetTransparency(float newAlpha)
     {
         Renderer renderer = this.GetComponent<Renderer>();

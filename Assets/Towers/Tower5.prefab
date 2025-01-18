@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6961050300125649513}
   - component: {fileID: 438694308226285128}
   - component: {fileID: 1336483566892923475}
-  - component: {fileID: 3321792105627265447}
   - component: {fileID: 8810850396745588472}
   m_Layer: 9
   m_Name: Tower5
@@ -31,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5686482, y: 0.5686482, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -160,24 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3321792105627265447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8761386076073676090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectlayer:
-    serializedVersion: 2
-    m_Bits: 11008
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 14848
 --- !u!114 &8810850396745588472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +179,7 @@ MonoBehaviour:
   projectileSpeed: 2.5
   AttackCooldown: 2
   AttackRange: 5.5
-  AttackPower: 20
+  attackPower: 20
   SplashAttackPower: 10
   initialHealthVolume: 50
   purchasePrice: 200

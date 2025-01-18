@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower0 : MonoBehaviour
+public class Tower0 : Tower
 {
     [SerializeField]
     private GameObject healthBarPrefab;
-    private GameObject bar;
     [SerializeField]
     private GameObject sellButtonPrefab;
-    private GameObject button;
 
     private float Timer = 0;
     [SerializeField]
@@ -18,95 +16,40 @@ public class Tower0 : MonoBehaviour
     private float Amount;
     private bool Ready = false;
 
+    /*[SerializeField]
+    private LayerMask cannotMoveLayer
+    {
+        get { return CannotMoveLayer; }
+        set { CannotMoveLayer = value; }
+    }*/
     //血量
     [SerializeField]
-    private float initialHealthVolume;
-    public float InitialHealthVolume
-    {
-        get { return initialHealthVolume; }
-    }
+    private float health;
     //价格
     [SerializeField]
     private float purchasePrice;
-    public float PurchasePrice
-    {
-        get { return purchasePrice; }
-    }
     [SerializeField]
     private float sellingPrice;
-    public float SellingPrice
-    {
-        get { return sellingPrice; }
-    }
-
-    private Animator animator;
 
     private void Awake()
     {
-        CreatChild();
-        GetComponent<Tower>().Price = purchasePrice;
+        InitialHealthVolume = health;
+        PurchasePrice = purchasePrice;
+        SellingPrice = sellingPrice;
+
+        animator = GetComponent<Animator>();
+        CreatHealthBar(healthBarPrefab);
     }
+
     private void Start()
     {
         //CreatChild();
-        CreatButton();
-        animator = GetComponent<Animator>();
+        CreatButton(sellButtonPrefab);//不放在Awake里因为等号生成塔时设置图层的时差
     }
 
     void Update()
     {
         Produce();
-    }
-
-    private void GiveHealthVolumn()
-    {
-        HealthBar healthBar = GetComponentInChildren<HealthBar>();
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(InitialHealthVolume);
-        }
-    }
-
-    private void GiveSellButton()
-    {
-        SellTower sellTower = GetComponentInChildren<SellTower>();
-        if(sellTower != null)
-        {
-            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
-        }
-    }
-
-    private void CreatChild()
-    {
-        Transform HealthBar = transform.Find("HealthBarCanvas");
-        if (!HealthBar)
-        {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
-            bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
-            bar.transform.SetParent(this.transform);
-            Vector2 scale = bar.transform.localScale;
-            scale = scale * 0.8f;
-            bar.transform.localScale = scale;
-            GiveHealthVolumn();
-        }
-    }
-
-    private void CreatButton()
-    {
-        if (gameObject.layer != 11 && gameObject.layer != 12)
-        {
-            Transform SellButton = transform.Find("SellButtonCanvas");
-            if (!SellButton)
-            {
-                Vector3 position = new Vector3(transform.position.x, transform.position.y - 0.7f, 0f);
-                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
-                button.transform.SetParent(this.transform);
-                Vector2 scale = button.transform.localScale;
-                scale = scale * 0.8f;
-                button.transform.localScale = scale;
-                GiveSellButton();
-            }
-        }
     }
 
     private void Produce()

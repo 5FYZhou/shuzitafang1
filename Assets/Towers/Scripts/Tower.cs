@@ -2,35 +2,32 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField]
-    private LayerMask detectlayer;
-    [SerializeField]
-    private LayerMask towerLayer;
+    protected LayerMask CannotMoveLayer;
 
-    private float price;
+    //ÑªÁ¿
+    protected float InitialHealthVolume;
+    //¼Û¸ñ
+    protected float PurchasePrice;
+    protected float SellingPrice;
+    //¹¥»÷
+    protected float AttackPower;
+    protected float Range;
 
-    public float Price { get => price; set => price = value; }
+    protected Animator animator;
 
-    private void Start()
+    public bool TCanMoveToDir(Vector2 dir)
     {
-        //range = GetComponentInChildren<TowerAttackRange>();
-        //if(this.gameObject.layer == 11)
-        {
-            //RemoveButton();
-        }
-    }
+        CannotMoveLayer = LayerMask.GetMask("Wall", "Tower", "EqualTower", "PlayerTower", "Homebase");
 
-    public bool CanMoveToDir(Vector2 dir)
-    {
-        if(this.gameObject.layer == 13)
+        if (this.gameObject.layer == 13)
         {
             return false;
         }
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dir * 0.6f, dir, 0.5f, detectlayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + (Vector3)dir * 0.6f, dir, 0.5f, CannotMoveLayer);
+        //Debug.Log(hit.collider);
         if (!hit)
         {
             transform.Translate(dir);
-            //ShowRange();
             return true;
         }
         
@@ -39,13 +36,12 @@ public class Tower : MonoBehaviour
 
     public Vector2 TowerPosition()
     {
-        return transform.position;
+        return this.transform.position;
     }
     public void ToTowerPosition(Vector2 position0)
     {
-        transform.position = position0;
+        this.transform.position = position0;
     }
-
 
     public void TakeDamage(float damage)
     {
@@ -65,6 +61,51 @@ public class Tower : MonoBehaviour
                     GetComponent<SpriteRenderer>().color = Color.gray;
                     GetComponent<BoxCollider2D>().enabled = false;
                 }
+            }
+        }
+    }
+
+    protected void CreatRange(GameObject prefab)
+    {
+        GameObject towerRange = Instantiate(prefab, this.transform.position, Quaternion.identity);
+        towerRange.transform.SetParent(this.transform);
+
+        TowerAttackRange towerrange=GetComponentInChildren<TowerAttackRange>();
+        if (towerrange)
+        {
+            towerrange.SetAttackRange(new Vector2(Range, Range));
+        }
+    }
+    protected void CreatHealthBar(GameObject prefab)
+    {
+        Vector3 position = new(transform.position.x, transform.position.y + 1f, 0f);
+        GameObject bar = Instantiate(prefab, position, Quaternion.identity);
+        bar.transform.SetParent(this.transform);
+        Vector2 scale = bar.transform.localScale;
+        scale *= 0.8f;
+        bar.transform.localScale = scale;
+
+        HealthBar healthBar = GetComponentInChildren<HealthBar>();
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(InitialHealthVolume);
+        }
+    }
+    protected void CreatButton(GameObject prefab)
+    {
+        if (gameObject.layer != 11 && gameObject.layer != 12)
+        {
+            Vector3 position = new(transform.position.x, transform.position.y - 0.7f, 0f);
+            GameObject button = Instantiate(prefab, position, Quaternion.identity);
+            button.transform.SetParent(this.transform);
+            Vector2 scale = button.transform.localScale;
+            scale *= 0.8f;
+            button.transform.localScale = scale;
+
+            SellTower sellTower = GetComponentInChildren<SellTower>();
+            if (sellTower != null)
+            {
+                sellTower.Initialize(SellingPrice);
             }
         }
     }
@@ -94,6 +135,16 @@ public class Tower : MonoBehaviour
         }
     }
 
+    public void StrengthenAttackPower(float per)
+    {
+        //Debug.Log("S");
+        AttackPower *= (per + 1);
+    }
+    public void ReduceAttackPower(float per)
+    {
+        AttackPower /= (per + 1);
+    }
+
     /*private void OnMouseDown()
     {
         //if (Input.GetMouseButtonDown(0))
@@ -116,8 +167,8 @@ public class Tower : MonoBehaviour
         }
     }*/
 
-    public void DestroyTower()
+    /*public void DestroyTower()
     {
         Destroy(this.gameObject);
-    }
+    }*/
 }

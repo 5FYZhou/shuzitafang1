@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1351212052147863285}
   - component: {fileID: 3384256923698870795}
   - component: {fileID: 4911951027890886473}
-  - component: {fileID: 9201719521803306169}
   - component: {fileID: 7633182544302372415}
   - component: {fileID: 3397651120409889108}
   m_Layer: 9
@@ -161,24 +160,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &9201719521803306169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4744128919181119991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectlayer:
-    serializedVersion: 2
-    m_Bits: 11008
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 14848
 --- !u!114 &7633182544302372415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +180,7 @@ MonoBehaviour:
   projectileSpeed: 2.5
   AttackCooldown: 1
   AttackRange: 13
-  AttackPower: 20
+  attackPower: 20
   initialHealthVolume: 50
   purchasePrice: 100
   sellingPrice: 60

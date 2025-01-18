@@ -16,8 +16,6 @@ public class SellTower : MonoBehaviour
     [SerializeField]
     private float sellPrice;
 
-    private Tower parent;
-
     private void Awake()
     {
         image = GetComponent<Image>();
@@ -47,14 +45,13 @@ public class SellTower : MonoBehaviour
         }
     }
 
-    public void Initialize(float sellprice,Tower Parent)
+    public void Initialize(float sellprice)
     {
         sellPrice = sellprice;
-        parent = Parent;
         if (text != null)
             text.text = sellprice.ToString();
-        else
-            Debug.Log("A");
+        //else
+            //Debug.Log("A");
     }
 
     public void Show()
@@ -68,7 +65,7 @@ public class SellTower : MonoBehaviour
         //Debug.Log("Sell"+sellPrice);
         GameObject currency = GameObject.Find("CurrencyCanvas");
         currency.GetComponent<CurrencyManager>().Currency += sellPrice;
-        parent.DestroyTower();
+        Destroy(transform.parent.parent.gameObject);
 
         GameObject.Find("Grid").GetComponentInChildren<CreatTowerManager>().TowerNumber -= 1;
     }

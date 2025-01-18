@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
+public class Tower1 : Tower
 {
     /*[SerializeField]
     private string projectileType;*/
@@ -10,11 +10,8 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
     private GameObject attackRangePrefab;
     [SerializeField]
     private GameObject healthBarPrefab;
-    private GameObject towerRange;
-    private GameObject bar;
     [SerializeField]
     private GameObject sellButtonPrefab;
-    private GameObject button;
 
     //¹¥»÷Ä¿±ê
     [SerializeField]
@@ -24,7 +21,7 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
         get { return target; }
     }
 
-    private Queue<GameObject> monsters = new Queue<GameObject>();
+    private Queue<GameObject> monsters = new();
     //¹¥»÷
     private bool canAttack = true;
     public GameObject projectilePrefab;
@@ -40,122 +37,44 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
     private float AttackCooldown;
     [SerializeField]
     private float AttackRange;
-    
     //¹¥»÷Á¦
     [SerializeField]
-    private float AttackPower;
+    private float attackPower;
     public float Damage
     {
         get { return AttackPower; }
     }
-
     //ÑªÁ¿
     [SerializeField]
     private float initialHealthVolume;
-    public float InitialHealthVolume
-    {
-        get { return initialHealthVolume; }
-    }
     //¼Û¸ñ
     [SerializeField]
     private float purchasePrice;
-    public float PurchasePrice
-    {
-        get { return purchasePrice; }
-    }
     [SerializeField]
     private float sellingPrice;
-    public float SellingPrice
-    {
-        get { return sellingPrice; }
-    }
-
-    //¶¯»­
-    private Animator Tower1Animator;
 
     private void Awake()
     {
-        CreatChild();
-        GetComponent<Tower>().Price = purchasePrice;
+        AttackPower = attackPower;
+        InitialHealthVolume = initialHealthVolume;
+        PurchasePrice = purchasePrice;
+        SellingPrice = sellingPrice;
+        Range = AttackRange;
+
+        CreatHealthBar(healthBarPrefab);
+        CreatRange(attackRangePrefab);
     }
 
     void Start()
     {
         //CreatChild();
-        CreatButton();
-        Tower1Animator = GetComponent<Animator>();
+        CreatButton(sellButtonPrefab);
+        animator = GetComponent<Animator>();
     }
     void Update()
     {
         Attack();
         //Debug.Log(monsters.Count);
-    }
-
-    private void GiveAttackRange()
-    {
-        Vector2 range = new Vector2(AttackRange, AttackRange);
-        if (towerRange)
-        {
-            towerRange.GetComponent<TowerAttackRange>().SetAttackRange(range);
-        }
-    }
-
-    private void GiveHealthVolumn()
-    {
-        HealthBar healthBar = GetComponentInChildren<HealthBar>();
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(InitialHealthVolume);
-        }
-    }
-
-    private void GiveSellButton()
-    {
-        SellTower sellTower = GetComponentInChildren<SellTower>();
-        if (sellTower != null)
-        {
-            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
-        }
-    }
-
-    private void CreatChild()
-    {
-        Transform HealthBar = transform.Find("HealthBarCanvas");
-        if (!HealthBar)
-        {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
-            bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
-            bar.transform.SetParent(this.transform);
-            Vector2 scale = bar.transform.localScale;
-            scale = scale * 0.8f;
-            bar.transform.localScale = scale;
-            GiveHealthVolumn();
-        }
-        Transform AttackRange = transform.Find("TowerAttakRange");
-        if (!AttackRange)
-        {
-            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
-            towerRange.transform.SetParent(this.transform);
-            GiveAttackRange();
-        }
-    }
-
-    private void CreatButton()
-    {
-        if (gameObject.layer != 11 && gameObject.layer != 12)
-        {
-            Transform SellButton = transform.Find("SellButtonCanvas");
-            if (!SellButton)
-            {
-                Vector3 position = new Vector3(transform.position.x, transform.position.y - 0.7f, 0f);
-                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
-                button.transform.SetParent(this.transform);
-                Vector2 scale = button.transform.localScale;
-                scale = scale * 0.8f;
-                button.transform.localScale = scale;
-                GiveSellButton();
-            }
-        }
     }
 
     private void Attack()
@@ -181,7 +100,7 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
                 Shoot();
                 canAttack = false;
 
-                Tower1Animator.SetTrigger("Attack");
+                animator.SetTrigger("Attack");
             }
         }
     }
@@ -208,7 +127,7 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
         {
             if (target != null && other.gameObject != target.gameObject)
             {
-                Queue<GameObject> tempQueue = new Queue<GameObject>();
+                Queue<GameObject> tempQueue = new();
                 while (monsters.Count > 0)
                 {
                     GameObject monster0 = monsters.Dequeue();
@@ -226,14 +145,5 @@ public class Tower1 : MonoBehaviour, IStrengthenTowerAttackPower
             else
                 target = null;
         }
-    }
-
-    public void Strengthen(float per)
-    {
-        AttackPower = AttackPower * (per + 1);
-    }
-    public void Reduce(float per)
-    {
-        AttackPower = AttackPower / (per + 1);
     }
 }

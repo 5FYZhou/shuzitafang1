@@ -4,118 +4,50 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class Tower4 : MonoBehaviour
+public class Tower4 : Tower
 {
     [SerializeField]
     private GameObject attackRangePrefab;
-    private GameObject towerRange;
     [SerializeField]
     private GameObject healthBarPrefab;
-    private GameObject bar;
     [SerializeField]
     private GameObject sellButtonPrefab;
-    private GameObject button;
 
     //血量
     [SerializeField]
     private float initialHealthVolume;
-    public float InitialHealthVolume
-    {
-        get { return initialHealthVolume; }
-    }
     //价格
     [SerializeField]
     private float purchasePrice;
-    public float PurchasePrice
-    {
-        get { return purchasePrice; }
-    }
     [SerializeField]
     private float sellingPrice;
-    public float SellingPrice
-    {
-        get { return sellingPrice; }
-    }
     //范围
     [SerializeField]
     private float StrengthenRange;
+    //百分比
     [SerializeField]
     private float StrengthenPercentage;
 
-    private List<GameObject> StrengthenTowers = new List<GameObject>();
+    //private List<GameObject> StrengthenTowers = new();
 
     private void Awake()
     {
-        CreatChild();
-        GetComponent<Tower>().Price = purchasePrice;
+        InitialHealthVolume = initialHealthVolume;
+        PurchasePrice = purchasePrice;
+        SellingPrice = sellingPrice;
+        Range = StrengthenRange;
+
+        CreatHealthBar(healthBarPrefab);
+        CreatRange(attackRangePrefab);
     }
 
     private void Start()
     {
         //CreatChild();
-        CreatButton();
+        CreatButton(sellButtonPrefab);
     }
 
-    private void GiveAttackRange()
-    {
-        Vector2 range = new Vector2(StrengthenRange, StrengthenRange);
-        if (towerRange)
-        {
-            towerRange.GetComponent<TowerAttackRange>().SetAttackRange(range);
-        }
-    }
-    private void GiveHealthVolumn()
-    {
-        HealthBar healthBar = GetComponentInChildren<HealthBar>();
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(InitialHealthVolume);
-        }
-    }
-    private void GiveSellButton()
-    {
-        SellTower sellTower = GetComponentInChildren<SellTower>();
-        if (sellTower != null)
-        {
-            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
-        }
-    }
-
-    private void CreatChild()
-    {
-        Transform HealthBar = transform.Find("HealthBarCanvas");
-        if (!HealthBar)
-        {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1.5f, 0f);
-            bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
-            bar.transform.SetParent(this.transform);
-            GiveHealthVolumn();
-        }
-        Transform AttackRange = transform.Find("TowerAttakRange");
-        if (!AttackRange)
-        {
-            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
-            towerRange.transform.SetParent(this.transform);
-            GiveAttackRange();
-        }
-    }
-
-    private void CreatButton()
-    {
-        if (gameObject.layer != 11 && gameObject.layer != 12)
-        {
-            Transform SellButton = transform.Find("SellButtonCanvas");
-            if (!SellButton)
-            {
-                Vector3 position = new Vector3(transform.position.x, transform.position.y - 1f, 0f);
-                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
-                button.transform.SetParent(this.transform);
-                GiveSellButton();
-            }
-        }
-    }
-
-    private void Remove(GameObject Detower)
+    /*private void Remove(GameObject Detower)
     {
         List<GameObject> NewTowers = new List<GameObject>();
         foreach (GameObject tower in StrengthenTowers)
@@ -126,16 +58,16 @@ public class Tower4 : MonoBehaviour
             }
         }
         StrengthenTowers = NewTowers;
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("tower"))
         {
-            IStrengthenTowerAttackPower power = other.GetComponent<IStrengthenTowerAttackPower>();
+            Tower power = other.GetComponent<Tower>();
             if(power != null)
             {
-                power.Strengthen(StrengthenPercentage);
+                power.StrengthenAttackPower(StrengthenPercentage);
             }
         }
     }
@@ -144,10 +76,10 @@ public class Tower4 : MonoBehaviour
     {
         if (other.CompareTag("tower"))
         {
-            IStrengthenTowerAttackPower power = other.GetComponent<IStrengthenTowerAttackPower>();
+            Tower power = other.GetComponent<Tower>();
             if (power != null)
             {
-                power.Reduce(StrengthenPercentage);
+                power.ReduceAttackPower(StrengthenPercentage);
             }
         }
     }

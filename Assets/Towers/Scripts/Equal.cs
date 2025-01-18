@@ -20,7 +20,7 @@ public class Equal : MonoBehaviour
     private int[] SymbolsInACertainDirection = new int[4] { -1, -1, -1, -1 };//сробвСио
 
     [SerializeField]
-    private List<GameObject> TowerPrefabs = new List<GameObject>();
+    private List<GameObject> TowerPrefabs = new();
 
     private int[] PreNewTowerDigit = new int[4] { -1, -1, -1, -1 };
     private float[] PreTowerHealth = new float[4] { 0, 0, 0, 0 };

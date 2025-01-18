@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 939023105194181059}
   - component: {fileID: 6616111834219760321}
   - component: {fileID: 1516764237628415922}
-  - component: {fileID: 7308510446206906025}
   - component: {fileID: 2850789171836826858}
   - component: {fileID: 2017834062179522459}
   m_Layer: 9
@@ -161,24 +160,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &7308510446206906025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7413090924474089021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectlayer:
-    serializedVersion: 2
-    m_Bits: 11008
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 14848
 --- !u!114 &2850789171836826858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713b49b91d3b40b409c08e8d63be11d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   attackRangePrefab: {fileID: 5224493115100585899, guid: 5d964f912b8de3b4c8a497c1efbd048f, type: 3}
   healthBarPrefab: {fileID: 2399184445945375336, guid: 9e24471d803c431479e9960777455649, type: 3}
   sellButtonPrefab: {fileID: 5620365566833145275, guid: 18785eb55bcb17e4691e1ddaf5743a1a, type: 3}
@@ -201,11 +183,10 @@ MonoBehaviour:
     m_Bits: 512
   AttackCooldown: 2
   AttackRange: 16
-  AttackPower: 10
+  attackPower: 10
   initialHealthVolume: 25
   purchasePrice: 50
   sellingPrice: 30
-  animator: {fileID: 0}
 --- !u!95 &2017834062179522459
 Animator:
   serializedVersion: 5

@@ -21,7 +21,6 @@ public class CreatTowerManager : MonoBehaviour
     public int MaxTowerNumber { get => maxTowerNumber; set => maxTowerNumber = value; }
     private int towerNumber = 0;
     public int TowerNumber { get => towerNumber; set => towerNumber = value; }
-    private bool BtnGrey;
     //建造塔的数量上限
     [SerializeField]
     private int MaxCreatedTowerNumber;
@@ -59,7 +58,9 @@ public class CreatTowerManager : MonoBehaviour
             {
                 PlaceTower();
             }
-            //显示塔状态
+
+
+            //点击显示塔状态
             RaycastHit2D hitT = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, towerLayer);
             if (hitT.collider != null)
             {

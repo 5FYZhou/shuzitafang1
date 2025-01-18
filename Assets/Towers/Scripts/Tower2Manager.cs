@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class Tower2Manager : MonoBehaviour
 {
-    private List<Tower2> towers = new List<Tower2>();  // 存储所有的塔
-    public List<ElectricPath> electricPaths = new List<ElectricPath>();
+    private List<Tower2> towers = new();  // 存储所有的塔
+    public List<ElectricPath> electricPaths = new();
     public GameObject electricPathPrefab;  // 电流路径的预制件
 
     public Sprite electricSprite;
@@ -37,7 +37,7 @@ public class Tower2Manager : MonoBehaviour
 
     private void Remove(ElectricPath elecPath)
     {
-        List<ElectricPath> elecPaths = new List<ElectricPath>();
+        List<ElectricPath> elecPaths = new();
         foreach (ElectricPath path in electricPaths)
         {
             if (path != elecPath)
@@ -102,7 +102,7 @@ public class Tower2Manager : MonoBehaviour
         /*Vector2 scale = path.transform.localScale;
         scale.x = Mathf.Abs(positionA.x - positionB.x) + Mathf.Abs(positionA.y - positionB.y) - 1f;
         path.transform.localScale = scale;*/
-        float width = Mathf.Abs(positionA.x - positionB.x) + Mathf.Abs(positionA.y - positionB.y) - 1f;
+        float width = Mathf.Abs(positionA.x - positionB.x) + Mathf.Abs(positionA.y - positionB.y) - 0.5f;
         SpriteRenderer spriteRenderer = path.GetComponent<SpriteRenderer>();
         spriteRenderer.size = new Vector2(width, 0.1f);
 

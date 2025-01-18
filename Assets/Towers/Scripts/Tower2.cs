@@ -1,17 +1,14 @@
 using System.Linq;
 using UnityEngine;
 
-public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
+public class Tower2 : Tower
 {
     [SerializeField]
     private GameObject attackRangePrefab;
     [SerializeField]
     private GameObject healthBarPrefab;
-    private GameObject towerRange;
-    private GameObject bar;
     [SerializeField]
     private GameObject sellButtonPrefab;
-    private GameObject button;
 
     [SerializeField]
     private GameObject Electricpath;
@@ -22,16 +19,16 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
     private LayerMask layer;
     //¹¥»÷¼ä¸ô¡¢·¶Î§
     [SerializeField]
-    private float AttackCooldown;
-    public float attackCooldown
+    private float attackCooldown;
+    public float AttackCooldown
     {
-        get { return AttackCooldown; }
+        get { return attackCooldown; }
     }
     [SerializeField]
     private float AttackRange;
     //¹¥»÷Á¦
     [SerializeField]
-    private float AttackPower;
+    private float attackPower;
     public float Damage
     {
         get { return AttackPower; }
@@ -40,40 +37,37 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
     //ÑªÁ¿
     [SerializeField]
     private float initialHealthVolume;
-    public float InitialHealthVolume
-    {
-        get { return initialHealthVolume; }
-    }
     //¼Û¸ñ
     [SerializeField]
     private float purchasePrice;
-    public float PurchasePrice
-    {
-        get { return purchasePrice; }
-    }
     [SerializeField]
     private float sellingPrice;
-    public float SellingPrice
-    {
-        get { return sellingPrice; }
-    }
 
-    public Animator animator;
+    public Animator Myanimator
+    {
+        get { return animator; }
+    }
 
     private void Awake()
     {
-        CreatChild();
-        GetComponent<Tower>().Price = purchasePrice;
+        AttackPower = attackPower;
+        InitialHealthVolume = initialHealthVolume;
+        PurchasePrice = purchasePrice;
+        SellingPrice = sellingPrice;
+        Range = AttackRange;
+
+        CreatHealthBar(healthBarPrefab);
+        CreatRange(attackRangePrefab);
     }
 
     void Start()
     {
         //CreatChild();
-        CreatButton();
+        CreatButton(sellButtonPrefab);
         //position = transform.position;
         if (FindObjectsOfType<Tower2Manager>().Count() < 1)
         {
-            GameObject gameObject = new GameObject("Tower2manager");
+            GameObject gameObject = new("Tower2manager");
             gameObject.AddComponent<Tower2Manager>();
             gameObject.GetComponent<Tower2Manager>().electricPathPrefab = Electricpath;
             gameObject.GetComponent<Tower2Manager>().electricSprite = electricSprite;
@@ -81,74 +75,6 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
 
         animator = GetComponent<Animator>();
 
-    }
-    
-    private void GiveAttackRange()
-    {
-        Vector2 range = new Vector2(AttackRange, AttackRange);
-        TowerAttackRange towerRange = GetComponentInChildren<TowerAttackRange>();
-        if (towerRange)
-        {
-            towerRange.SetAttackRange(range);
-        }
-    }
-
-    private void GiveHealthVolumn()
-    {
-        HealthBar healthBar = GetComponentInChildren<HealthBar>();
-        if (healthBar != null)
-        {
-            healthBar.SetHealth(InitialHealthVolume);
-        }
-    }
-
-    private void GiveSellButton()
-    {
-        SellTower sellTower = GetComponentInChildren<SellTower>();
-        if (sellTower != null)
-        {
-            sellTower.Initialize(sellingPrice, GetComponent<Tower>());
-        }
-    }
-
-    private void CreatChild()
-    {
-        Transform HealthBar = transform.Find("HealthBarCanvas");
-        if (!HealthBar)
-        {
-            Vector3 position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
-            bar = Instantiate(healthBarPrefab, position, Quaternion.identity);
-            bar.transform.SetParent(this.transform);
-            Vector2 scale = bar.transform.localScale;
-            scale = scale * 0.8f;
-            bar.transform.localScale = scale;
-            GiveHealthVolumn();
-        }
-        Transform AttackRange = transform.Find("TowerAttakRange");
-        if (!AttackRange)
-        {
-            towerRange = Instantiate(attackRangePrefab, this.transform.position, Quaternion.identity);
-            towerRange.transform.SetParent(this.transform);
-            GiveAttackRange();
-        }
-    }
-
-    private void CreatButton()
-    {
-        if (gameObject.layer != 11 && gameObject.layer != 12)
-        {
-            Transform SellButton = transform.Find("SellButtonCanvas");
-            if (!SellButton)
-            {
-                Vector3 position = new Vector3(transform.position.x, transform.position.y - 0.7f, 0f);
-                button = Instantiate(sellButtonPrefab, position, Quaternion.identity);
-                button.transform.SetParent(this.transform);
-                Vector2 scale = button.transform.localScale;
-                scale = scale * 0.8f;
-                button.transform.localScale = scale;
-                GiveSellButton();
-            }
-        }
     }
 
     /*public bool PositionChanged()
@@ -200,13 +126,4 @@ public class Tower2 : MonoBehaviour, IStrengthenTowerAttackPower
             
         }
     }*/
-
-    public void Strengthen(float per)
-    {
-        AttackPower = AttackPower * (per + 1);
-    }
-    public void Reduce(float per)
-    {
-        AttackPower = AttackPower / (per + 1);
-    }
 }

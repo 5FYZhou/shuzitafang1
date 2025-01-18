@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2640168497831597240}
   - component: {fileID: 287796002401769833}
   - component: {fileID: 4642151997871417348}
-  - component: {fileID: 7662688192230030973}
   - component: {fileID: 5466242409837367605}
   m_Layer: 9
   m_Name: Tower4
@@ -31,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5686482, y: 0.5686482, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -160,24 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7662688192230030973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2728694720752997667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectlayer:
-    serializedVersion: 2
-    m_Bits: 11008
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 14848
 --- !u!114 &5466242409837367605
 MonoBehaviour:
   m_ObjectHideFlags: 0

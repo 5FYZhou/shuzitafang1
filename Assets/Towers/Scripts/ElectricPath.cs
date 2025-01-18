@@ -18,10 +18,10 @@ public class ElectricPath : MonoBehaviour
     private float AttackCooldown;
     [SerializeField]
     private float Damage;
-    private List<GameObject> targets = new List<GameObject>();
+    private List<GameObject> targets = new();
 
-    private float damageA;
-    private float damageB;
+    //private float damageA;
+    //private float damageB;
 
     private Animator towerAanimator;
     private Animator towerBanimator;
@@ -47,17 +47,17 @@ public class ElectricPath : MonoBehaviour
         PrePosA = towerA.transform.position;
         PrePosB = towerB.transform.position;
         tower2Manager = Manager;
-        AttackCooldown = towerA.attackCooldown;
+        AttackCooldown = towerA.AttackCooldown;
         Damage = towerA.Damage > towerB.Damage ? towerA.Damage : towerB.Damage;
-        damageA = towerA.Damage;
-        damageB = towerB.Damage;
-        towerAanimator = towerA.animator;
-        towerBanimator = towerB.animator;
+        //damageA = towerA.Damage;
+        //damageB = towerB.Damage;
+        towerAanimator = towerA.Myanimator;
+        towerBanimator = towerB.Myanimator;
     }
 
     private void Remove(GameObject Detarget)
     {
-        List<GameObject> Newtargets = new List<GameObject>();
+        List<GameObject> Newtargets = new();
         foreach (GameObject target in targets)
         {
             if (target != Detarget)
@@ -81,7 +81,7 @@ public class ElectricPath : MonoBehaviour
             /*Vector2 scale = transform.localScale;
             scale.x = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 1f;
             transform.localScale = scale;*/
-            float width = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 1f;
+            float width = Mathf.Abs(PrePosA.x - PrePosB.x) + Mathf.Abs(PrePosA.y - PrePosB.y) - 0.5f;
             tileRenderer.size = new Vector2(width, 0.1f);
             boxCollider.size = new Vector2(width, 0.2f);
             // }

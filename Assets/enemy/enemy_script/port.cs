@@ -12,9 +12,3 @@ public interface enemy
 
     bool Death { get; set; }
 }
-
-public interface IStrengthenTowerAttackPower
-{
-    void Strengthen(float per);
-    void Reduce(float per);
-}
