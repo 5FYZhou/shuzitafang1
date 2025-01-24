@@ -27,16 +27,16 @@ RectTransform:
   m_GameObject: {fileID: 3440652210970754350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.89167, y: 0.96667, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4249136178711795349}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.7583, y: 0}
-  m_SizeDelta: {x: 2.9153, y: 1.5}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.3096, y: -0.0068}
+  m_SizeDelta: {x: 1.3635, y: 1.1837}
+  m_Pivot: {x: 0.50000054, y: 0.5}
 --- !u!222 &63343606996659219
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.8
-  m_fontSizeBase: 0.8
+  m_fontSize: 0.7
+  m_fontSizeBase: 0.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -168,8 +168,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1.5166, y: 1.4507}
+  m_AnchoredPosition: {x: 0, y: 0.000000052154}
+  m_SizeDelta: {x: 1.1864, y: 1.0471}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7038860837438291775
 CanvasRenderer:
@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 1915657603265535797}
   - component: {fileID: 5525645789370120879}
   - component: {fileID: 750820578707429273}
+  - component: {fileID: 3272148734446420363}
   m_Layer: 5
   m_Name: CurrencyCanvas
   m_TagString: Untagged
@@ -237,7 +238,7 @@ RectTransform:
   m_GameObject: {fileID: 6545641076162955630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 43.218582, y: 43.880604, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1095171208229129737}
@@ -270,7 +271,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &5525645789370120879
 MonoBehaviour:
@@ -312,3 +313,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3272148734446420363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6545641076162955630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57020b8312bad04db25f6f52d53beb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currency: 50
+  maxCurrency: 600
+  currencyTxt: {fileID: 5790495371270483736}

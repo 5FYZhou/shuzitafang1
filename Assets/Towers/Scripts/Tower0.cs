@@ -38,13 +38,13 @@ public class Tower0 : Tower
         SellingPrice = sellingPrice;
 
         animator = GetComponent<Animator>();
-        CreatHealthBar(healthBarPrefab);
+        CreatHealthBar(healthBarPrefab, 1f, 0.8f);
     }
 
     private void Start()
     {
         //CreatChild();
-        CreatButton(sellButtonPrefab);//不放在Awake里因为等号生成塔时设置图层的时差
+        CreatButton(sellButtonPrefab, 0.7f, 0.8f);//不放在Awake里因为等号生成塔时设置图层的时差
     }
 
     void Update()

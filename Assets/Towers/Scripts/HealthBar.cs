@@ -13,6 +13,8 @@ public class HealthBar : MonoBehaviour
     }
 
     private float Timer = 0;
+    [SerializeField]
+    private float ShowCD;
     private Image render;
     private Image backgroundrender;
     public bool show = true;
@@ -31,7 +33,7 @@ public class HealthBar : MonoBehaviour
             backgroundrender.enabled = true;
 
             Timer += Time.deltaTime;
-            if (Timer >= 3)
+            if (Timer >= ShowCD)
             {
                 Timer = 0;
                 show = false;

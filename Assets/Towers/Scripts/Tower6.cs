@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower5 : Tower
+public class Tower6 : Tower
 {
     [SerializeField]
     private GameObject attackRangePrefab;
@@ -35,21 +35,13 @@ public class Tower5 : Tower
     private float AttackCooldown;
     [SerializeField]
     private float AttackRange;
-
     //¹¥»÷Á¦
     [SerializeField]
-    private float attackPower;
-    [SerializeField]
-    private float SplashAttackPower;
+    private float attackPowerPer;
     public float Damage
     {
         get { return AttackPower; }
     }
-    public float SplashDamage 
-    {
-        get { return SplashAttackPower; }
-    }
-
     //ÑªÁ¿
     [SerializeField]
     private float initialHealthVolume;
@@ -61,7 +53,6 @@ public class Tower5 : Tower
 
     private void Awake()
     {
-        AttackPower = attackPower;
         InitialHealthVolume = initialHealthVolume;
         PurchasePrice = purchasePrice;
         SellingPrice = sellingPrice;
@@ -73,10 +64,11 @@ public class Tower5 : Tower
 
     void Start()
     {
+        //CreatChild();
         CreatButton(sellButtonPrefab, 0.7f, 0.8f);
         //animator = GetComponent<Animator>();
-
     }
+
     void Update()
     {
         Attack();
@@ -113,10 +105,11 @@ public class Tower5 : Tower
 
     private void Shoot()
     {
+        //Projectile projectile = /*GameManager.Instance.Pool.GetObject(projectileType).Ã»Ð´*/GetComponent<Projectile>();
         GameObject projectile = Instantiate(this.projectilePrefab, transform.position, Quaternion.identity);
         projectile.transform.position = transform.position;
 
-        projectile.GetComponent<T5Projectile>().Initialize(this);
+        projectile.GetComponent<T6Projectile>().Initialize(this, attackPowerPer);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -148,9 +141,7 @@ public class Tower5 : Tower
                 }
             }
             else
-            {
                 target = null;
-            }
         }
     }
 }

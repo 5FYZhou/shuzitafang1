@@ -9,7 +9,7 @@ public class enemy_generator : MonoBehaviour
     public float[] time_counter = new float[] { 0, 0 };//{time,turn}
     public float[] wave_num = new float[] { 0, 0, 60, 120, 180, 240 };//turn,each_time
     public int[] enemy_kill_counter = new int[] { 0, 0 };
-    public float[,] gen_list;
+    public float[,] gen_list;//{time,type,number}
 
     private bool can_function = true;
     private enemy enemy_script;

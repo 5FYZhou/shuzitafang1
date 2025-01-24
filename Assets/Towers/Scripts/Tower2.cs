@@ -56,14 +56,14 @@ public class Tower2 : Tower
         SellingPrice = sellingPrice;
         Range = AttackRange;
 
-        CreatHealthBar(healthBarPrefab);
+        CreatHealthBar(healthBarPrefab, 1f, 0.8f);
         CreatRange(attackRangePrefab);
     }
 
     void Start()
     {
         //CreatChild();
-        CreatButton(sellButtonPrefab);
+        CreatButton(sellButtonPrefab, 0.7f, 0.8f);
         //position = transform.position;
         if (FindObjectsOfType<Tower2Manager>().Count() < 1)
         {

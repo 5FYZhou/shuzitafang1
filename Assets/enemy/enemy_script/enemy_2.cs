@@ -219,6 +219,7 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
             triggerQueue.Enqueue(other);
             is_attack = true;
             attack_interval[2] = 0;
+            attack_interval_counter = 0;
             move = false;
         }
     }
@@ -228,11 +229,13 @@ public class enemy_2 : MonoBehaviour, IHealthAccessor, enemy
         if (other.gameObject.CompareTag("tower"))
         {
             triggerQueue = queue_pop(triggerQueue, other);
+            enemy_2_animation.Play("enemy_2_attack", -1, 0f);
             if (triggerQueue.Count == 0 && death == false)
             {
                 move = true;
                 is_attack = false;
                 attack_interval[2] = 0;
+                attack_interval_counter = 0;
             }
         }
     }

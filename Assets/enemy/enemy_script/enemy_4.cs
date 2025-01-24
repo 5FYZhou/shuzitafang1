@@ -241,6 +241,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
             triggerQueue.Enqueue(other);
             is_attack = true;
             attack_interval[2] = 0;
+            attack_interval_counter = 0;
             move = false;
         }
     }
@@ -250,11 +251,13 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
         if (other.gameObject.CompareTag("tower"))
         {
             triggerQueue = queue_pop(triggerQueue, other);
+            enemy_4_animation.Play("enemy_4_attack", -1, 0f);
             if (triggerQueue.Count == 0 && death == false)
             {
                 move = true;
                 is_attack = false;
                 attack_interval[2] = 0;
+                attack_interval_counter = 0;
             }
         }
     }
@@ -262,7 +265,7 @@ public class enemy_4 : MonoBehaviour, IHealthAccessor, enemy
     void fission(int x,int y)
     {
         enemy_generator_script.enemy_kill_counter[1] += 1;
-        Vector3 v = new Vector3(x * l_of_side + original_point[0], y * l_of_side + original_point[1], 0f);
+        Vector3 v = new Vector3(x * l_of_side + original_point[0] - l_of_side / 2, y * l_of_side + original_point[1] - l_of_side / 2, 0f);
 
         if (Random.Range(0, 2) == 1)
         {

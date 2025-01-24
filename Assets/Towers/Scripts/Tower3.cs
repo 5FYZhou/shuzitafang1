@@ -24,12 +24,12 @@ public class Tower3 : Tower
         PurchasePrice = purchasePrice;
         SellingPrice = sellingPrice;
 
-        CreatHealthBar(healthBarPrefab);
+        CreatHealthBar(healthBarPrefab, 1f, 0.8f);
     }
 
     void Start()
     {
         //CreatChild();
-        CreatButton(sellButtonPrefab);
+        CreatButton(sellButtonPrefab, 0.7f, 0.8f);
     }
 }

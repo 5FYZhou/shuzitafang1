@@ -1,13 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour
+public class T1Projectile : MonoBehaviour
 {
     //enemy enemy = new enemy();
 
     private GameObject target;
 
     private Tower1 parent;
+
+    private float damage;
 
     private Animator animator;
 
@@ -20,10 +22,11 @@ public class Projectile : MonoBehaviour
         MoveToTarget();
     }
 
-    public void Initialize(Tower1 parent)
+    public void Initialize(Tower1 parent, float damage)
     {
         this.target = parent.Target;
         this.parent = parent;
+        this.damage = damage;
     }
 
     protected void MoveToTarget()
@@ -65,12 +68,12 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void AttackTarget()
+    public void AttackTarget()//动画中
     {
-        target.GetComponent<enemy>().attack(parent.Damage);
+        target.GetComponent<enemy>().attack(damage);
     }
 
-    public void DestroyGameObject()
+    public void DestroyGameObject()//动画中
     {
         Destroy(this.gameObject);
     }

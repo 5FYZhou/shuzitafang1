@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0.66981125, b: 0.66981125, a: 1}
   m_FlipX: 0
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1.5}
   m_EdgeRadius: 0
 --- !u!50 &1336483566892923475
 Rigidbody2D:
@@ -178,7 +178,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4915104445138285246, guid: e52f9bcca80d7a946ad7fa2e5d6fa0e8, type: 3}
   projectileSpeed: 2.5
   AttackCooldown: 2
-  AttackRange: 5.5
+  AttackRange: 11
   attackPower: 20
   SplashAttackPower: 10
   initialHealthVolume: 50

@@ -37,14 +37,14 @@ public class Tower4 : Tower
         SellingPrice = sellingPrice;
         Range = StrengthenRange;
 
-        CreatHealthBar(healthBarPrefab);
+        CreatHealthBar(healthBarPrefab, 1f, 0.8f);
         CreatRange(attackRangePrefab);
     }
 
     private void Start()
     {
         //CreatChild();
-        CreatButton(sellButtonPrefab);
+        CreatButton(sellButtonPrefab, 0.7f, 0.8f);
     }
 
     /*private void Remove(GameObject Detower)

@@ -6,6 +6,8 @@ public class TowerAttackRange : MonoBehaviour
 
     private bool show = true;
     private float timer = 0;
+    [SerializeField]
+    private float ShowCD;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class TowerAttackRange : MonoBehaviour
             Active();
 
             timer += Time.deltaTime;
-            if (timer >= 3f)
+            if (timer >= ShowCD)
             {
                 timer = 0;
                 show = false;

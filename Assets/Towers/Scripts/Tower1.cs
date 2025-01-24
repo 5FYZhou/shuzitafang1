@@ -61,14 +61,14 @@ public class Tower1 : Tower
         SellingPrice = sellingPrice;
         Range = AttackRange;
 
-        CreatHealthBar(healthBarPrefab);
+        CreatHealthBar(healthBarPrefab, 1f, 0.8f);
         CreatRange(attackRangePrefab);
     }
 
     void Start()
     {
         //CreatChild();
-        CreatButton(sellButtonPrefab);
+        CreatButton(sellButtonPrefab, 0.7f, 0.8f);
         animator = GetComponent<Animator>();
     }
     void Update()
@@ -111,7 +111,7 @@ public class Tower1 : Tower
         GameObject projectile = Instantiate(this.projectilePrefab, transform.position, Quaternion.identity);
         projectile.transform.position = transform.position;
 
-        projectile.GetComponent<Projectile>().Initialize(this);
+        projectile.GetComponent<T1Projectile>().Initialize(this, AttackPower);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

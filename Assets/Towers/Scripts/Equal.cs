@@ -186,7 +186,7 @@ public class Equal : MonoBehaviour
                             player.DelectTower();
                         }
 
-                        if (!HasInstantiate[i] && CanProduceTower(-dir) && newTowerDigit >= 0 && newTowerDigit <= 3)//可以创造
+                        if (!HasInstantiate[i] && CanProduceTower(-dir))//可以创造
                         {
                             //Debug.Log("creat");
 
@@ -208,7 +208,7 @@ public class Equal : MonoBehaviour
                             }
                         }
 
-                        else if(!HasInstantiate[i] && towerM != null && !player.HasTower && newTowerDigit >= 0 && newTowerDigit <= 3)//towerM
+                        else if(!HasInstantiate[i] && towerM != null && !player.HasTower)//towerM
                         {
                             //Debug.Log("MMMMM");
                             //Type towerType = Type.GetType("Tower"+newTowerDigit.ToString());

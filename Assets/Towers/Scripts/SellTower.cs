@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SellTower : MonoBehaviour
 {
-    private bool show = true;
+    private bool show = false;
     private float timer = 0;
     private Image image;
     private Button button;
@@ -15,6 +15,9 @@ public class SellTower : MonoBehaviour
 
     [SerializeField]
     private float sellPrice;
+
+    [SerializeField]
+    private float ShowCD;
 
     private void Awake()
     {
@@ -33,7 +36,7 @@ public class SellTower : MonoBehaviour
             text.enabled = true;
 
             timer += Time.deltaTime;
-            if (timer >= 3f)
+            if (timer >= ShowCD)
             {
                 timer = 0;
                 show = false;

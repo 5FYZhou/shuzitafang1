@@ -49,7 +49,7 @@ public class CreatTowerManager : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition = StandardizePosition(mousePosition);
+            mousePosition = StandardizePosition(mousePosition, -9f, -6.5f);
             //Debug.Log(mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, CannotPlaceLayer);
@@ -76,12 +76,12 @@ public class CreatTowerManager : MonoBehaviour
         }
     }
 
-    private Vector2 StandardizePosition(Vector2 position)
+    private Vector2 StandardizePosition(Vector2 position, float _x, float _y)
     {
-        int x0 = Mathf.FloorToInt(position.x - (-9f));
-        int y0 = Mathf.FloorToInt(position.y - (-6.5f));
-        position.x =-9f + x0 + 0.5f;
-        position.y = -6.5f + y0 + 0.5f;
+        int x0 = Mathf.FloorToInt(position.x - _x);
+        int y0 = Mathf.FloorToInt(position.y - _y);
+        position.x = _x + x0 + 0.5f;
+        position.y = _y + y0 + 0.5f;
         return position;
     }
 

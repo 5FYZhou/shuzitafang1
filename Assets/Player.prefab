@@ -181,6 +181,9 @@ MonoBehaviour:
   - {fileID: 4744128919181119991, guid: 24a49ec3c33a74b4f8deecfcb634a967, type: 3}
   - {fileID: 7413090924474089021, guid: 4c0a2558c6393644fa044d05e3ab51f9, type: 3}
   - {fileID: 222648210861155341, guid: e73d03006e431ac47b9be5a6ca837958, type: 3}
+  - {fileID: 2728694720752997667, guid: c4a00dfd2b0ab27439ed0a847cd21b90, type: 3}
+  - {fileID: 8761386076073676090, guid: 8d915d54e54830b4680c83293ede904c, type: 3}
+  - {fileID: 6453417296523682767, guid: 0850f015d5b047f4a809bcab25f59dfb, type: 3}
   NewTower: {fileID: 0}
 --- !u!95 &-581249201648751439
 Animator:

@@ -8,6 +8,8 @@ public class CurrencyManager : MonoBehaviour
 {
     [SerializeField]
     private float currency;
+    [SerializeField]
+    private float maxCurrency;
 
     [SerializeField]
     private TMP_Text currencyTxt;
@@ -30,9 +32,9 @@ public class CurrencyManager : MonoBehaviour
 
     private void Update()
     {
-        if (Currency > 600)
+        if (Currency > maxCurrency)
         {
-            Currency = 600;
+            Currency = maxCurrency;
         }
     }
 }

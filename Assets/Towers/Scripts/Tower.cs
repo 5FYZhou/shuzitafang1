@@ -54,6 +54,7 @@ public class Tower : MonoBehaviour
                 if (this.gameObject.layer != 13)
                 {
                     Destroy(gameObject);
+                    GameObject.Find("Grid").GetComponentInChildren<CreatTowerManager>().TowerNumber -= 1;
                 }
                 else
                 {
@@ -76,13 +77,13 @@ public class Tower : MonoBehaviour
             towerrange.SetAttackRange(new Vector2(Range, Range));
         }
     }
-    protected void CreatHealthBar(GameObject prefab)
+    protected void CreatHealthBar(GameObject prefab, float high, float scaleper)
     {
-        Vector3 position = new(transform.position.x, transform.position.y + 1f, 0f);
+        Vector3 position = new(transform.position.x, transform.position.y + high, 0f);
         GameObject bar = Instantiate(prefab, position, Quaternion.identity);
         bar.transform.SetParent(this.transform);
         Vector2 scale = bar.transform.localScale;
-        scale *= 0.8f;
+        scale *= scaleper;
         bar.transform.localScale = scale;
 
         HealthBar healthBar = GetComponentInChildren<HealthBar>();
@@ -91,15 +92,15 @@ public class Tower : MonoBehaviour
             healthBar.SetHealth(InitialHealthVolume);
         }
     }
-    protected void CreatButton(GameObject prefab)
+    protected void CreatButton(GameObject prefab, float low, float scaleper)
     {
         if (gameObject.layer != 11 && gameObject.layer != 12)
         {
-            Vector3 position = new(transform.position.x, transform.position.y - 0.7f, 0f);
+            Vector3 position = new(transform.position.x, transform.position.y - low, 0f);
             GameObject button = Instantiate(prefab, position, Quaternion.identity);
             button.transform.SetParent(this.transform);
             Vector2 scale = button.transform.localScale;
-            scale *= 0.8f;
+            scale *= scaleper;
             button.transform.localScale = scale;
 
             SellTower sellTower = GetComponentInChildren<SellTower>();

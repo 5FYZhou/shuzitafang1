@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 23272881644312965}
   - component: {fileID: 4463515071563662615}
   - component: {fileID: 510190907965586875}
-  - component: {fileID: 5554792696489950478}
   - component: {fileID: 4683512037993857315}
   m_Layer: 13
   m_Name: HomeBase
@@ -160,24 +159,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5554792696489950478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6095296632618158374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09cc9bf949bc08f40a3833ac55d598af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectlayer:
-    serializedVersion: 2
-    m_Bits: 0
-  towerLayer:
-    serializedVersion: 2
-    m_Bits: 14848
 --- !u!114 &4683512037993857315
 MonoBehaviour:
   m_ObjectHideFlags: 0
