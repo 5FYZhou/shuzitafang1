@@ -46,11 +46,13 @@ public class CreatTowerManager : MonoBehaviour
 
     private void OnMouseDown()
     {
+        Debug.Log("down");
         if (!EventSystem.current.IsPointerOverGameObject())
         {
+            Debug.Log("event");
             mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition = StandardizePosition(mousePosition, -9f, -6.5f);
-            //Debug.Log(mousePosition);
+            Debug.Log(mousePosition);
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, CannotPlaceLayer);
 
@@ -59,15 +61,16 @@ public class CreatTowerManager : MonoBehaviour
                 PlaceTower();
             }
 
-
             //µã»÷ÏÔÊ¾Ëþ×´Ì¬
             RaycastHit2D hitT = Physics2D.Raycast(mousePosition, Vector2.zero, Mathf.Infinity, towerLayer);
+            Debug.Log(hitT);
             if (hitT.collider != null)
             {
-                //Debug.Log("tower");
+                Debug.Log("hit");
                 Tower tower = hitT.collider.GetComponent<Tower>();
                 if (tower != null)
                 {
+                    Debug.Log("tower");
                     tower.ShowRange();
                     tower.ShowHealthBar();
                     tower.ShowButton();

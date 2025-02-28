@@ -117,7 +117,7 @@ public class Equal : MonoBehaviour
 
     private bool CanProduceTower(Vector3 dir)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 1f, towerlayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 0.5f, towerlayer);
         if (hit)
         {
             //Debug.Log("CanHit");
@@ -128,7 +128,7 @@ public class Equal : MonoBehaviour
 
     private GameObject HasTowerM(Vector3 dir)
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 1f, towerlayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + dir * 0.6f, dir, 0.5f, towerlayer);
         if (hit)
         {
             if (hit.collider.CompareTag("TowerM"))

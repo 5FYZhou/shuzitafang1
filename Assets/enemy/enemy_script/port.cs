@@ -11,4 +11,5 @@ public interface enemy
     void Start();
 
     bool Death { get; set; }
+    bool WillDie {  get; set; }
 }

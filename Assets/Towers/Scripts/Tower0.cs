@@ -68,6 +68,7 @@ public class Tower0 : Tower
             //Debug.Log("produce");
 
             GameObject currency = GameObject.Find("CurrencyCanvas");
+            if(currency != null)
             currency.GetComponent<CurrencyManager>().Currency += Amount;
 
             Ready = false;

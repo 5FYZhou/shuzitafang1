@@ -93,14 +93,24 @@ public class Tower1 : Tower
         {
             target = monsters.Dequeue();
         }
-        if (target != null && !target.GetComponent<enemy>().Death/*怪物活着*/)
+        if (target != null )
         {
-            if (canAttack)
+            enemy targetenemy = target.GetComponent<enemy>();
+            if (!targetenemy.Death && !targetenemy.WillDie/*怪物活着*/)
             {
-                Shoot();
-                canAttack = false;
+                if (canAttack)
+                {
+                    Shoot();
+                    canAttack = false;
 
-                animator.SetTrigger("Attack");
+                    animator.SetTrigger("Attack");
+
+                    if (target.GetComponent<IHealthAccessor>().HP[0] <= AttackPower && !targetenemy.WillDie)
+                    {
+                        targetenemy.WillDie = true;
+                        //Debug.Log(target.name + "willdie");
+                    }
+                }
             }
         }
     }
